@@ -1,5 +1,6 @@
 import sys
 from sharedFunctions import estEmissions, estTransitions
+from math import log
 
 
 def predictViterbiFile(emissions, transitions, file):
@@ -11,8 +12,7 @@ def predictViterbiFile(emissions, transitions, file):
     @param transitions: output from estTransitions function
     @param file: file with unlabelled text
     """
-    out = open("dev.p3.out")
-    with open(file) as f:
+    with open(file) as f, open("dev.p3.out", "w") as out:
         sentence = []
 
         for line in f:
@@ -23,7 +23,11 @@ def predictViterbiFile(emissions, transitions, file):
 
             # predict tag sequence
             else:
-                pass
+                sequence = predictViterbiList(emissions, transitions, sentence)
+                for i in range(len(sequence)):
+                    out.write("{} {}\n".format(sentence[i], sequence[i]))
+                out.write("\n")
+                sentence = []
 
 
 def predictViterbiList(emissions, transitions, textList):
@@ -40,32 +44,32 @@ def predictViterbiList(emissions, transitions, textList):
     # base case
     tags = emissions.keys()
     pies = {}
-    pies[0] = {"_START": [1.0, None]}
+    pies[0] = {"_START": [0.0, None]}
 
     # forward iterations
+    # Calculate log pie to combat underflow problem
     for i in range(1, len(textList) + 1):
         word = textList[i - 1]
         for curr in tags:
-            bestPie = 0
+            bestPie = None
             parent = None
 
             # Check if word has been seen before
             if word in emissions[curr]:
-                b = emissions[curr][word]
+                b = log(emissions[curr][word])
             else:
-                b = emissions[curr]["#UNK#"]
+                b = log(emissions[curr]["#UNK#"])
 
             for prev, prevPie in pies[i - 1].items():
 
-                # Check if transition pair exists
-                if curr in transitions[prev]:
-                    a = transitions[prev][curr]
-                else:
-                    a = 0
+                # Check if transition pair and prevPie exist
+                if curr not in transitions[prev] or prevPie[0] is None:
+                    continue
 
-                # Calculate pie
-                tempPie = prevPie[0] * a * b
-                if tempPie > bestPie:
+                a = log(transitions[prev][curr])
+                tempPie = prevPie[0] + a + b
+
+                if bestPie is None or tempPie > bestPie:
                     bestPie = tempPie
                     parent = prev
 
@@ -76,14 +80,16 @@ def predictViterbiList(emissions, transitions, textList):
                 pies[i] = {curr: [bestPie, parent]}
 
     # stop case
-    bestPie = 0
+    bestPie = None
     parent = None
 
     for prev, prevPie in pies[len(textList)].items():
-        tempPie = prevPie[0] * transitions[prev]["_STOP"]
-        if tempPie > bestPie:
-            bestPie = tempPie
-            parent = prev
+        # Check prev can lead to a stop
+        if "_STOP" in transitions[prev]:
+            tempPie = prevPie[0] + log(transitions[prev]["_STOP"])
+            if bestPie is None or tempPie > bestPie:
+                bestPie = tempPie
+                parent = prev
 
     pies[len(textList) + 1] = {"_STOP": [bestPie, parent]}
 
@@ -110,13 +116,6 @@ if len(sys.argv) != 3:
 
 _, train, test = sys.argv
 emissions = estEmissions(train)
+print(emissions)
 transitions = estTransitions(train)
-
-with open(test) as t:
-    sentence = []
-    for line in t:
-        line = line.strip()
-        if line != '':
-            sentence.append(line)
-
-print(predictViterbiList(emissions, transitions, sentence))
+predictViterbiFile(emissions, transitions, test)

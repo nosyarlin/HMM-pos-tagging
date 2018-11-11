@@ -10,8 +10,6 @@ def predictSentiments(emissions, file):
     @param emissions: output from estEmissions function
     @param file: file with unlabelled text
     """
-    out = open("dev.p2.out", "w")
-
     # find best #UNK# for later use
     unkTag = "O"
     unkP = 0
@@ -19,7 +17,7 @@ def predictSentiments(emissions, file):
         if emissions[tag]["#UNK#"] > unkP:
             unkTag = tag
 
-    with open(file) as f:
+    with open(file) as f, open("dev.p2.out", "w") as out:
         for line in f:
             if line == "\n":
                 out.write(line)
