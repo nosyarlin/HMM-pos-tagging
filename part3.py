@@ -1,2 +1,3 @@
-from sharedFunctions import estEmissions
+from sharedFunctions import estEmissions, estTransitions
 
+print(estTransitions("./rayson"))

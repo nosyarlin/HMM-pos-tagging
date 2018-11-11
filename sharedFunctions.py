@@ -44,11 +44,11 @@ def estEmissions(file, k=3):
             if xCount >= k:
                 xDict[x] = xCount / float(yCounts[y])
             else:
-                # Word is too rare
+                # word is too rare
                 toRemove.append(x)
                 unkCount += xCount
 
-        # Remove rare words and get emission of #UNK#
+        # remove rare words and get emission of #UNK#
         for x in toRemove:
             xDict.pop(x)
         emissions[y]["#UNK#"] = unkCount / float(yCounts[y])
@@ -60,9 +60,67 @@ def estTransitions(file):
     """
     Given training file, return transition parameters
 
-    @param k: Words appearing less than k times will be
-    replaced with #UNK#
-
     @return Dict: {y_prev: {y_curr: transition}}
     """
-    pass
+    start = "_START"
+    stop = "_STOP"
+    transitions = {}
+    yCounts = {start: 0}
+    prev = start
+    with open(file) as f:
+        for line in f:
+            temp = line.strip().split(" ")
+
+            # sentence has ended
+            if len(temp) == 1:
+                if prev in transitions:
+                    if stop in transitions[prev]:
+                        transitions[prev][stop] += 1
+                    else:
+                        transitions[prev][stop] = 1
+                else:
+                    transitions[prev] = {stop: 1}
+                prev = start
+
+            # part of a sentence
+            else:
+                curr = temp[1]
+
+                # update count(start) if new sentence
+                if prev == start:
+                    yCounts[start] += 1
+
+                # update count(y)
+                if curr in yCounts:
+                    yCounts[curr] += 1
+                else:
+                    yCounts[curr] = 1
+
+                # update count(prev, curr)
+                if prev in transitions:
+                    if curr in transitions[prev]:
+                        transitions[prev][curr] += 1
+                    else:
+                        transitions[prev][curr] = 1
+                else:
+                    transitions[prev] = {curr: 1}
+
+                prev = curr
+
+        # add count(prev, stop) if no blank lines at EOF
+        if prev != start:
+            if prev in transitions:
+                if stop in transitions[prev]:
+                    transitions[prev][stop] += 1
+                else:
+                    transitions[prev][stop] = 1
+            else:
+                transitions[prev] = {stop: 1}
+            prev = start
+
+    # convert counts to transitions
+    for prev, currDict in transitions.items():
+        for curr, currCount in currDict.items():
+            currDict[curr] = currCount / float(yCounts[prev])
+
+    return transitions

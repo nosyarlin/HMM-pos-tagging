@@ -12,7 +12,7 @@ def predictSentiments(emissions, file):
     """
     out = open("dev.p2.out", "w")
 
-    # Find best #UNK# for later use
+    # find best #UNK# for later use
     unkTag = "O"
     unkP = 0
     for tag in emissions.keys():
@@ -43,7 +43,7 @@ def predictSentiments(emissions, file):
     out.close()
 
 
-# Main
+# main
 if len(sys.argv) != 3:
     print("Usage: python3 part2.py [train file] [test file]")
 
