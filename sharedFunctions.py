@@ -12,14 +12,15 @@ def estEmissions(file, k=3):
 
     with open(file) as f:
         for line in f:
-            temp = line.strip().split(" ")
+            temp = line.strip()
 
             # ignore empty lines
-            if len(temp) == 1:
+            if len(temp) == 0 :
                 continue
             else:
-                x = temp[0]
-                y = temp[1]
+                last_space_index = temp.rfind(" ")
+                x = temp[:last_space_index]
+                y = temp[last_space_index+1:]
 
                 # update count(y)
                 if y in yCounts:
@@ -53,8 +54,7 @@ def estEmissions(file, k=3):
             xDict.pop(x)
         emissions[y]["#UNK#"] = unkCount / float(yCounts[y])
 
-    return emissions
-
+    return emissions  
 
 def estTransitions(file):
     """
