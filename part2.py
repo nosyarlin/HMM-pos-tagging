@@ -7,7 +7,7 @@ def predictSentiments(emissions, file):
     Predicts sentiments using argmax(emission)
     Saves labelled file as dev.p2.out
 
-    @param emiisions: output from estEmissions function
+    @param emissions: output from estEmissions function
     @param file: file with unlabelled text
     """
     out = open("dev.p2.out", "w")
@@ -39,8 +39,6 @@ def predictSentiments(emissions, file):
                     bestTag = unkTag
 
                 out.write("{} {}\n".format(word, bestTag))
-
-    out.close()
 
 
 # main
