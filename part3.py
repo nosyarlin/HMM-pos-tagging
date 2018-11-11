@@ -56,9 +56,11 @@ def predictViterbiList(emissions, transitions, textList):
 
             # Check if word has been seen before
             if word in emissions[curr]:
-                b = log(emissions[curr][word])
+                b = emissions[curr][word]
             else:
-                b = log(emissions[curr]["#UNK#"])
+                b = emissions[curr]["#UNK#"]
+            if b == 0.0:
+                continue
 
             for prev, prevPie in pies[i - 1].items():
 
@@ -66,8 +68,12 @@ def predictViterbiList(emissions, transitions, textList):
                 if curr not in transitions[prev] or prevPie[0] is None:
                     continue
 
-                a = log(transitions[prev][curr])
-                tempPie = prevPie[0] + a + b
+                a = transitions[prev][curr]
+                if a == 0:
+                    continue
+
+                # Calculate pie
+                tempPie = prevPie[0] + log(a) + log(b)
 
                 if bestPie is None or tempPie > bestPie:
                     bestPie = tempPie
@@ -86,7 +92,11 @@ def predictViterbiList(emissions, transitions, textList):
     for prev, prevPie in pies[len(textList)].items():
         # Check prev can lead to a stop
         if "_STOP" in transitions[prev]:
-            tempPie = prevPie[0] + log(transitions[prev]["_STOP"])
+            a = transitions[prev]["_STOP"]
+            if a == 0 or prevPie[0] is None:
+                continue
+
+            tempPie = prevPie[0] + log(a)
             if bestPie is None or tempPie > bestPie:
                 bestPie = tempPie
                 parent = prev
@@ -116,6 +126,5 @@ if len(sys.argv) != 3:
 
 _, train, test = sys.argv
 emissions = estEmissions(train)
-print(emissions)
 transitions = estTransitions(train)
 predictViterbiFile(emissions, transitions, test)
