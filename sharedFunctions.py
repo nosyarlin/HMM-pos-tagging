@@ -1,4 +1,4 @@
-def estEmissions(file, k=3):
+def estEmissions(file, k=1):
     """
     Given training file, return emission parameters
 
@@ -39,20 +39,10 @@ def estEmissions(file, k=3):
 
     # convert counts to emissions
     for y, xDict in emissions.items():
-        unkCount = 0
-        toRemove = []
         for x, xCount in xDict.items():
-            if xCount >= k:
-                xDict[x] = xCount / float(yCounts[y])
-            else:
-                # word is too rare
-                toRemove.append(x)
-                unkCount += xCount
-
-        # remove rare words and get emission of #UNK#
-        for x in toRemove:
-            xDict.pop(x)
-        emissions[y]["#UNK#"] = unkCount / float(yCounts[y])
+            xDict[x] = xCount / float(yCounts[y] + k)
+                
+        emissions[y]["#UNK#"] = k / float(yCounts[y] + k)
 
     return emissions  
 
