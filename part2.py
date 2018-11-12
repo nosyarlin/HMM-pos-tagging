@@ -2,13 +2,13 @@ import sys
 from sharedFunctions import estEmissions
 
 
-def predictSentiments(emissions, file):
+def predictSentiments(emissions, testfile):
     """
     Predicts sentiments using argmax(emission)
     Saves labelled file as dev.p2.out
 
     @param emissions: output from estEmissions function
-    @param file: file with unlabelled text
+    @param testfile: input file with unlabelled text
     """
     # find best #UNK# for later use
     unkTag = "O"
@@ -17,7 +17,7 @@ def predictSentiments(emissions, file):
         if emissions[tag]["#UNK#"] > unkP:
             unkTag = tag
 
-    with open(file) as f, open("dev.p2.out", "w") as out:
+    with open(testfile) as f, open("dev.p2.out", "w") as out:
         for line in f:
             if line == "\n":
                 out.write(line)
