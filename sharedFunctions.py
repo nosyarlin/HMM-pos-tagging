@@ -60,10 +60,10 @@ def estTransitions(file):
     prev = start
     with open(file) as f:
         for line in f:
-            temp = line.strip().split(" ")
+            temp = line.strip()
 
             # sentence has ended
-            if len(temp) == 1:
+            if len(temp) == 0:
                 if prev in transitions:
                     if stop in transitions[prev]:
                         transitions[prev][stop] += 1
@@ -75,7 +75,8 @@ def estTransitions(file):
 
             # part of a sentence
             else:
-                curr = temp[1]
+                last_space_index = temp.rfind(" ")
+                curr = temp[last_space_index + 1:]
 
                 # update count(start) if new sentence
                 if prev == start:

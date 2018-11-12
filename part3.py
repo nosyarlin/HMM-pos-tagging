@@ -1,4 +1,4 @@
-import sys
+from pathlib import Path
 from sharedFunctions import estEmissions, estTransitions
 from math import log
 
@@ -65,12 +65,12 @@ def predictViterbiList(emissions, transitions, textList):
             for prev, prevPie in pies[i - 1].items():
 
                 # Check if transition pair and prevPie exist
-                if curr not in transitions[prev] or prevPie[0] is None:
+                if curr not in transitions[prev] or \
+                   prevPie[0] is None or \
+                   transitions[prev][curr] == 0:
                     continue
 
                 a = transitions[prev][curr]
-                if a == 0:
-                    continue
 
                 # Calculate pie
                 tempPie = prevPie[0] + log(a) + log(b)
@@ -121,10 +121,17 @@ def predictViterbiList(emissions, transitions, textList):
 
 
 # main
-if len(sys.argv) != 3:
-    print("Usage: python3 part3.py [train file] [test file]")
+datasets = ["EN", "FR", "CN", "SG"]
+for ds in datasets:
+    datafolder = Path(ds)
+    trainFile = datafolder / "train"
+    testFile = datafolder / "dev.in"
+    outputFile = datafolder / "dev.p3.out"
 
-_, train, test = sys.argv
-emissions = estEmissions(train)
-transitions = estTransitions(train)
-predictViterbiFile(emissions, transitions, test)
+    emissions = estEmissions(trainFile)
+    transitions = estTransitions(trainFile)
+    predictViterbiFile(emissions, transitions, testFile)
+
+    print("Output:", outputFile)
+
+print("Done!")
