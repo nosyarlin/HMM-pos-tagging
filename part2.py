@@ -22,7 +22,7 @@ def predictSentiments(emissions, testfile, outputfile="dev.p2.out"):
             if line == "\n":
                 out.write(line)
             else:
-                word = line.strip()
+                word = line.strip().lower()
 
                 # find most likely tag for word
                 bestP = 0

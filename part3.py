@@ -1,15 +1,16 @@
 from pathlib import Path
-from sharedFunctions import estEmissions, estTransitions
+from sharedFunctions import estEmissions, estTransitions, getDictionary
 from math import log
 
 
-def predictViterbiFile(emissions, transitions, file):
+def predictViterbiFile(emissions, transitions, dictionary, file):
     """
     Predicts sentiments using the Viterbi algorithm
     Saves labelled file as dev.p3.out
 
     @param emissions: output from estEmissions function
     @param transitions: output from estTransitions function
+    @param dictionary: output from getDictionary function
     @param file: file with unlabelled text
     """
     with open(file) as f, open("dev.p3.out", "w") as out:
@@ -23,20 +24,21 @@ def predictViterbiFile(emissions, transitions, file):
 
             # predict tag sequence
             else:
-                sequence = predictViterbiList(emissions, transitions, sentence)
+                sequence = predictViterbiList(emissions, transitions, dictionary, sentence)
                 for i in range(len(sequence)):
                     out.write("{} {}\n".format(sentence[i], sequence[i]))
                 out.write("\n")
                 sentence = []
 
 
-def predictViterbiList(emissions, transitions, textList):
+def predictViterbiList(emissions, transitions, dictionary, textList):
     """
     Predicts sentiments for a list of words using the
     Viterbi algorithm
 
     @param emissions: output from estEmissions function
     @param transitions: output from estTransitions function
+    @param dictionary: output from getDictionary function
     @param textList: list of words
 
     @return: most probable y sequence for given textList as a list
@@ -49,18 +51,22 @@ def predictViterbiList(emissions, transitions, textList):
     # forward iterations
     # Calculate log pie to combat underflow problem
     for i in range(1, len(textList) + 1):
-        word = textList[i - 1]
+        word = textList[i - 1].lower()
+
+        # Replace word with #UNK# if not in train
+        if word not in dictionary:
+            word = "#UNK#"
+
         for curr in tags:
             bestPie = None
             parent = None
 
-            # Check if word has been seen before
-            if word in emissions[curr]:
-                b = emissions[curr][word]
-            else:
-                b = emissions[curr]["#UNK#"]
-            if b == 0.0:
+            # Check if word can come from curr symbol
+            if word not in emissions[curr] or \
+               emissions[curr][word] == 0:
                 continue
+
+            b = emissions[curr][word]
 
             for prev, prevPie in pies[i - 1].items():
 
@@ -80,11 +86,14 @@ def predictViterbiList(emissions, transitions, textList):
                     parent = prev
 
             # Update pies
+            if i == 6:
+                print(curr, bestPie, parent, word)
             if i in pies:
                 pies[i][curr] = [bestPie, parent]
             else:
                 pies[i] = {curr: [bestPie, parent]}
 
+    print('\n\n\n')
     # stop case
     bestPie = None
     parent = None
@@ -107,6 +116,13 @@ def predictViterbiList(emissions, transitions, textList):
     sequence = []
     curr = "_STOP"
     i = len(textList)
+
+    # print(emissions)
+    # print("\n\n")
+    # print(transitions)
+    # print("\n\n")
+    print(pies)
+    print("\n\n")
     while True:
         parent = pies[i + 1][curr][1]
         if parent == "_START":
@@ -130,7 +146,8 @@ for ds in datasets:
 
     emissions = estEmissions(trainFile)
     transitions = estTransitions(trainFile)
-    predictViterbiFile(emissions, transitions, testFile)
+    dictionary = getDictionary(trainFile)
+    predictViterbiFile(emissions, transitions, dictionary, testFile)
 
     print("Output:", outputFile)
 

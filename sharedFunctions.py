@@ -19,7 +19,7 @@ def estEmissions(file, k=1):
                 continue
             else:
                 last_space_index = temp.rfind(" ")
-                x = temp[:last_space_index]
+                x = temp[:last_space_index].lower()
                 y = temp[last_space_index + 1:]
 
                 # update count(y)
@@ -116,3 +116,25 @@ def estTransitions(file):
             currDict[curr] = currCount / float(yCounts[prev])
 
     return transitions
+
+
+def getDictionary(file):
+    """
+    Given training file, return set of all words
+
+    @return Set: set of all words in file
+    """
+    out = set()
+    with open(file) as f:
+        for line in f:
+            temp = line.strip()
+
+            # ignore empty lines
+            if len(temp) == 0:
+                continue
+            else:
+                last_space_index = temp.rfind(" ")
+                word = temp[:last_space_index].lower()
+                out.add(word)
+
+    return out
