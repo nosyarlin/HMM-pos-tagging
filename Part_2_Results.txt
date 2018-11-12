@@ -18,17 +18,17 @@ _______________________________________
 
 EN
 #Entity in gold data: 802
-#Entity in prediction: 936
+#Entity in prediction: 1016
 
-#Correct Entity : 449
-Entity  precision: 0.4797
-Entity  recall: 0.5599
-Entity  F: 0.5167
+#Correct Entity : 544
+Entity  precision: 0.5354
+Entity  recall: 0.6783
+Entity  F: 0.5985
 
-#Correct Entity Type : 320
-Entity Type  precision: 0.3419
-Entity Type  recall: 0.3990
-Entity Type  F: 0.3682
+#Correct Entity Type : 427
+Entity Type  precision: 0.4203
+Entity Type  recall: 0.5324
+Entity Type  F: 0.4697
 _______________________________________
 
 
