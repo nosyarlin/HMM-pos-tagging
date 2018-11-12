@@ -32,7 +32,7 @@ def predictSentiments(emissions, testfile, outputfile="dev.p2.out"):
                         if emissions[tag][word] > bestP:
                             bestP = emissions[tag][word]
                             bestTag = tag
-                
+
                 if bestTag == "":
                     bestTag = unkTag
 
