@@ -1,9 +1,8 @@
-import sys
 from pathlib import Path
 from sharedFunctions import estEmissions
 
 
-def predictSentiments(emissions, testfile, outputfile = "dev.p2.out"):
+def predictSentiments(emissions, testfile, outputfile="dev.p2.out"):
     """
     Predicts sentiments using argmax(emission)
     Saves labelled file as dev.p2.out
@@ -47,7 +46,8 @@ if (runAll.strip()).lower() == "y":
         predictSentiments(emissions, testfile, outputfile)
         print("Output:", outputfile)
     print("Done!")
-else: 
+
+else:
     trainfile = input("Please give me the file path for the training set: \n")
     testfile = input("Please give me the file path for the testing set: \n")
     print("Training:", trainfile, "\nTesting:", testfile)
