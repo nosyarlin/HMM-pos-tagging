@@ -37,6 +37,6 @@ def predictSentiments(emissions, testfile):
 if len(sys.argv) != 3:
     print("Usage: python3 part2.py [train file] [test file]")
 
-_, train, test = sys.argv
-emissions = estEmissions(train)
-predictSentiments(emissions, test)
+_, trainfile, testfile = sys.argv
+emissions = estEmissions(trainfile)
+predictSentiments(emissions, testfile)
