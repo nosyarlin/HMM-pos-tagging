@@ -3,7 +3,7 @@ from sharedFunctions import estEmissions, estTransitions, getDictionary
 from math import log
 
 
-def predictViterbiFile(emissions, transitions, dictionary, file):
+def predictViterbiFile(emissions, transitions, dictionary, inputFile, outputFile):
     """
     Predicts sentiments using the Viterbi algorithm
     Saves labelled file as dev.p3.out
@@ -13,7 +13,7 @@ def predictViterbiFile(emissions, transitions, dictionary, file):
     @param dictionary: output from getDictionary function
     @param file: file with unlabelled text
     """
-    with open(file) as f, open("dev.p3.out", "w") as out:
+    with open(inputFile) as f, open(outputFile, "w") as out:
         sentence = []
 
         for line in f:
@@ -86,14 +86,11 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
                     parent = prev
 
             # Update pies
-            if i == 6:
-                print(curr, bestPie, parent, word)
             if i in pies:
                 pies[i][curr] = [bestPie, parent]
             else:
                 pies[i] = {curr: [bestPie, parent]}
 
-    print('\n\n\n')
     # stop case
     bestPie = None
     parent = None
@@ -117,12 +114,6 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
     curr = "_STOP"
     i = len(textList)
 
-    # print(emissions)
-    # print("\n\n")
-    # print(transitions)
-    # print("\n\n")
-    print(pies)
-    print("\n\n")
     while True:
         parent = pies[i + 1][curr][1]
         if parent == "_START":
@@ -147,7 +138,7 @@ for ds in datasets:
     emissions = estEmissions(trainFile)
     transitions = estTransitions(trainFile)
     dictionary = getDictionary(trainFile)
-    predictViterbiFile(emissions, transitions, dictionary, testFile)
+    predictViterbiFile(emissions, transitions, dictionary, testFile, outputFile)
 
     print("Output:", outputFile)
 
