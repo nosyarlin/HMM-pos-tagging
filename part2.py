@@ -1,8 +1,9 @@
 import sys
+from pathlib import Path
 from sharedFunctions import estEmissions
 
 
-def predictSentiments(emissions, testfile):
+def predictSentiments(emissions, testfile, outputfile = "dev.p2.out"):
     """
     Predicts sentiments using argmax(emission)
     Saves labelled file as dev.p2.out
@@ -10,7 +11,7 @@ def predictSentiments(emissions, testfile):
     @param emissions: output from estEmissions function
     @param testfile: input file with unlabelled text
     """
-    with open(testfile) as f, open("dev.p2.out", "w") as out:
+    with open(testfile) as f, open(outputfile, "w") as out:
         for line in f:
             if line == "\n":
                 out.write(line)
@@ -34,9 +35,22 @@ def predictSentiments(emissions, testfile):
 
 
 # main
-if len(sys.argv) != 3:
-    print("Usage: python3 part2.py [train file] [test file]")
-
-_, trainfile, testfile = sys.argv
-emissions = estEmissions(trainfile)
-predictSentiments(emissions, testfile)
+runAll = input("Want to run for all datasets EN, FR, CN, SG? (y/n)\n")
+if (runAll.strip()).lower() == "y":
+    datasets = ["EN", "FR", "CN", "SG"]
+    for ds in datasets:
+        datafolder = Path(ds)
+        trainfile = datafolder / "train"
+        testfile = datafolder / "dev.in"
+        outputfile = datafolder / "dev.p2.out"
+        emissions = estEmissions(trainfile)
+        predictSentiments(emissions, testfile, outputfile)
+        print("Output:", outputfile)
+    print("Done!")
+else: 
+    trainfile = input("Please give me the file path for the training set: \n")
+    testfile = input("Please give me the file path for the testing set: \n")
+    print("Training:", trainfile, "\nTesting:", testfile)
+    emissions = estEmissions(trainfile)
+    predictSentiments(emissions, testfile)
+    print("Output: dev.p2.out \nDone!")
