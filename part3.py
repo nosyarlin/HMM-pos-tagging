@@ -6,12 +6,13 @@ from math import log
 def predictViterbiFile(emissions, transitions, dictionary, inputFile, outputFile):
     """
     Predicts sentiments using the Viterbi algorithm
-    Saves labelled file as dev.p3.out
+    If not outputFile given, saves labelled file as dev.p3.out
 
     @param emissions: output from estEmissions function
     @param transitions: output from estTransitions function
     @param dictionary: output from getDictionary function
-    @param file: file with unlabelled text
+    @param inputFile: name of file with unlabelled text
+    @param outputFile: name of file to save output of unlabelled text to
     """
     with open(inputFile) as f, open(outputFile, "w") as out:
         sentence = []
