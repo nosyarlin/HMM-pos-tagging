@@ -36,7 +36,7 @@ def isMissing(child, parent, d):
     """
     Returns whether child is not related to parent in dictionary d
 
-    @return: True if child not found under parent in d 
+    @return: True if child not found under parent in d
     """
     return (child not in d[parent]) or (d[parent][child] == 0)
 
@@ -71,7 +71,7 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
             bestPie = None
             parent = None
 
-            # Skip over words that can't come from currTag 
+            # Skip over words that can't come from currTag
             if isMissing(word, currTag, emissions):
                 continue
 
@@ -103,17 +103,17 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
     bestPie = None
     parent = None
 
-    for prev, prevPie in pies[len(textList)].items():
+    for prevTag, prevPie in pies[len(textList)].items():
         # Check prev can lead to a stop
-        if "_STOP" in transitions[prev]:
-            a = transitions[prev]["_STOP"]
+        if "_STOP" in transitions[prevTag]:
+            a = transitions[prevTag]["_STOP"]
             if a == 0 or prevPie[0] is None:
                 continue
 
             tempPie = prevPie[0] + log(a)
             if bestPie is None or tempPie > bestPie:
                 bestPie = tempPie
-                parent = prev
+                parent = prevTag
 
     pies[len(textList) + 1] = {"_STOP": [bestPie, parent]}
 
