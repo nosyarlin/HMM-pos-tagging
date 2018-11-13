@@ -32,6 +32,15 @@ def predictViterbiFile(emissions, transitions, dictionary, inputFile, outputFile
                 sentence = []
 
 
+def isMissing(child, parent, d):
+    """
+    Returns whether child is not related to parent in dictionary d
+
+    @return: True if child not found under parent in d 
+    """
+    return (child not in d[parent]) or (d[parent][child] == 0)
+
+
 def predictViterbiList(emissions, transitions, dictionary, textList):
     """
     Predicts sentiments for a list of words using the
@@ -58,39 +67,37 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
         if word not in dictionary:
             word = "#UNK#"
 
-        for curr in tags:
+        for currTag in tags:
             bestPie = None
             parent = None
 
-            # Check if word can come from curr symbol
-            if word not in emissions[curr] or \
-               emissions[curr][word] == 0:
+            # Skip over words that can't come from currTag 
+            if isMissing(word, currTag, emissions):
                 continue
 
-            b = emissions[curr][word]
+            b = emissions[currTag][word]
 
-            for prev, prevPie in pies[i - 1].items():
+            for prevTag, prevPie in pies[i - 1].items():
 
                 # Check if transition pair and prevPie exist
-                if curr not in transitions[prev] or \
-                   prevPie[0] is None or \
-                   transitions[prev][curr] == 0:
+                if isMissing(prevTag, currTag, transitions) or \
+                   prevPie[0] is None:
                     continue
 
-                a = transitions[prev][curr]
+                a = transitions[prevTag][currTag]
 
                 # Calculate pie
                 tempPie = prevPie[0] + log(a) + log(b)
 
                 if bestPie is None or tempPie > bestPie:
                     bestPie = tempPie
-                    parent = prev
+                    parent = prevTag
 
             # Update pies
             if i in pies:
-                pies[i][curr] = [bestPie, parent]
+                pies[i][currTag] = [bestPie, parent]
             else:
-                pies[i] = {curr: [bestPie, parent]}
+                pies[i] = {currTag: [bestPie, parent]}
 
     # stop case
     bestPie = None
