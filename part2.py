@@ -5,10 +5,11 @@ from sharedFunctions import estEmissions
 def predictSentiments(emissions, testfile, outputfile="dev.p2.out"):
     """
     Predicts sentiments using argmax(emission)
-    Saves labelled file as dev.p2.out
+    If no outputfile given, saves labelled file as dev.p2.out
 
     @param emissions: output from estEmissions function
     @param testfile: input file with unlabelled text
+    @param outputfile: name of file to save the output of labelled text
     """
     # find best #UNK# for later use
     unkTag = "O"
