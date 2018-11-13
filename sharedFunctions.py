@@ -8,7 +8,8 @@ def incrementCount(parent, child, d):
         else:
             d[parent][child] = 1
     else:
-        d[parent] = {child:1}
+        d[parent] = {child: 1}
+
 
 def estEmissions(file, k=1):
     """

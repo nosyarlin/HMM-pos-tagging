@@ -80,7 +80,7 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
             for prevTag, prevPie in pies[i - 1].items():
 
                 # Check if transition pair and prevPie exist
-                if isMissing(prevTag, currTag, transitions) or \
+                if isMissing(currTag, prevTag, transitions) or \
                    prevPie[0] is None:
                     continue
 
