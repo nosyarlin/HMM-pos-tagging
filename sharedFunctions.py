@@ -1,3 +1,15 @@
+def incrementCount(parent, child, d):
+    """
+    Increment the count of [parent][child] in dictionary d
+    """
+    if parent in d:
+        if child in d[parent]:
+            d[parent][child] += 1
+        else:
+            d[parent][child] = 1
+    else:
+        d[parent] = {child:1}
+
 def estEmissions(file, k=1):
     """
     Given training file, return emission parameters
@@ -29,13 +41,7 @@ def estEmissions(file, k=1):
                     yCounts[y] = 1
 
                 # update count(y->x)
-                if y in emissions:
-                    if x in emissions[y]:
-                        emissions[y][x] += 1
-                    else:
-                        emissions[y][x] = 1
-                else:
-                    emissions[y] = {x: 1}
+                incrementCount(y, x, emissions)
 
     # convert counts to emissions
     for y, xDict in emissions.items():
@@ -64,13 +70,7 @@ def estTransitions(file):
 
             # sentence has ended
             if len(temp) == 0:
-                if prev in transitions:
-                    if stop in transitions[prev]:
-                        transitions[prev][stop] += 1
-                    else:
-                        transitions[prev][stop] = 1
-                else:
-                    transitions[prev] = {stop: 1}
+                incrementCount(prev, stop, transitions)
                 prev = start
 
             # part of a sentence
@@ -89,25 +89,13 @@ def estTransitions(file):
                     yCounts[curr] = 1
 
                 # update count(prev, curr)
-                if prev in transitions:
-                    if curr in transitions[prev]:
-                        transitions[prev][curr] += 1
-                    else:
-                        transitions[prev][curr] = 1
-                else:
-                    transitions[prev] = {curr: 1}
+                incrementCount(prev, curr, transitions)
 
                 prev = curr
 
         # add count(prev, stop) if no blank lines at EOF
         if prev != start:
-            if prev in transitions:
-                if stop in transitions[prev]:
-                    transitions[prev][stop] += 1
-                else:
-                    transitions[prev][stop] = 1
-            else:
-                transitions[prev] = {stop: 1}
+            incrementCount(prev, stop, transitions)
             prev = start
 
     # convert counts to transitions
