@@ -118,6 +118,7 @@ def estTransitions2(file):
     transitions = {}
     yCounts = {start: 0}
     y_jm2 = start
+    prev = start
     with open(file) as f:
         for line in f:
             temp = line.strip()
