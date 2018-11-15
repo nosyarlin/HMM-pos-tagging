@@ -38,7 +38,7 @@ def isMissing(child, parent, d):
 
     @return: True if child not found under parent in d
     """
-    return (child not in d[parent]) or (d[parent][child] == 0)
+    return (parent not in d) or (child not in d[parent]) or (d[parent][child] == 0)
 
 
 def predictViterbiList(emissions, transitions, dictionary, textList):
@@ -47,7 +47,7 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
     Viterbi algorithm
 
     @param emissions: output from estEmissions function
-    @param transitions: output from estTransitions function
+    @param transitions: output from estTransitions2 function
     @param dictionary: output from getDictionary function
     @param textList: list of words
 
@@ -56,12 +56,13 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
     # base case
     tags = emissions.keys()
     pies = {}
-    pies[0] = {"_START": [0.0, None]}
-    initialise = False
+    pies[0] = {"_START": [0.0, None, None]}
+    pies[1] = {"_START": [0.0, None, None]}
+
     # forward iterations
     # Calculate log pie to combat underflow problem
-    for i in range(1, len(textList) + 1):
-        word = textList[i - 1].lower()
+    for i in range(2, len(textList) + 2):
+        word = textList[i - 2].lower()
 
         # Replace word with #UNK# if not in train
         if word not in dictionary:
@@ -69,117 +70,110 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
 
         for currTag in tags:
             bestPie = None
-            parent = None
+            parent_jm1 = None
+            parent_jm2 = None
 
             # Skip over words that can't come from currTag
             if isMissing(word, currTag, emissions):
                 continue
 
             b = emissions[currTag][word]
-            
-            i = len(pies)
-            
-            for prevTag, prevPie in pies[i - 1].items():
-                #Check if prevTag is _Start, add pair
-                if(prevTag == "_START"):
-                    initialise = True
-                    continue
 
-                # Check if transition pair and prevPie exist
-                elif isMissing(currTag, prevTag, transitions) or \
-                   prevPie[0] is None:
-                    continue
+            for y_jm2, jm2_Pie in pies[i - 2].items():
 
-                
-                a = transitions[prevTag][currTag]
+                for y_jm1, jm1_Pie in pies[i - 1].items():
 
-                # Calculate pie
-                tempPie = prevPie[0] + log(a) + log(b)
+                    # Check if transition pair and prevPie exist
+                    if isMissing(currTag, (y_jm2, y_jm1), transitions) or \
+                       jm1_Pie[0] is None:
+                        continue
 
-                if bestPie is None or tempPie > bestPie:
-                    bestPie = tempPie
-                    parent = prevTag
+                    a = transitions[(y_jm2, y_jm1)][currTag]
 
-            if (initialise):
-                # Update pies
-                newTag = ('_START',currTag)
-                jm1 = currTag
-                pies[0] = {newTag:[0.0, None]}
-                initialise = False
+                    # Calculate pie
+                    tempPie = jm1_Pie[0] + log(a) + log(b)
+
+                    if bestPie is None or tempPie > bestPie:
+                        bestPie = tempPie
+                        parent_jm1 = y_jm1
+                        parent_jm2 = y_jm2
+
+            # Update pies
+            if i in pies:
+                pies[i][currTag] = [bestPie, parent_jm1, parent_jm2]
             else:
-                # Update pies
-                newTag = (jm1,currTag)
-                jm1 = currTag
-                if i in pies:
-                    pies[i][newTag] = [bestPie, parent]
-                else:
-                    pies[i] = {newTag: [bestPie, parent]}
+                pies[i] = {currTag: [bestPie, parent_jm1, parent_jm2]}
 
     # stop case
     bestPie = None
-    parent = None
+    parent_jm1 = None
+    parent_jm2 = None
 
-    for prevTag, prevPie in pies[len(textList)-1].items():
-        # Check prev can lead to a stop
-        if "_STOP" in transitions[prevTag]:
-            a = transitions[prevTag]["_STOP"]
-            if a == 0 or prevPie[0] is None:
+    for y_jm2, jm2_Pie in pies[len(textList)].items():
+
+        for y_jm1, jm1_Pie in pies[len(textList) + 1].items():
+
+            # Check prev can lead to a stop
+            if isMissing("_STOP", (y_jm2, y_jm1), transitions) or \
+               jm1_Pie[0] is None:
                 continue
 
-            tempPie = prevPie[0] + log(a)
-            if bestPie is None or tempPie > bestPie:
-                bestPie = tempPie
-                parent = prevTag
+            a = transitions[(y_jm2, y_jm1)]["_STOP"]
+            tempPie = jm1_Pie[0] + log(a)
 
-    newTag = (jm1,"_STOP")
-    pies[len(textList)] = {newTag: [bestPie, parent]}
+            if bestPie is None or tempPie > bestPie:
+                parent_jm1 = y_jm1
+                parent_jm2 = y_jm2
+
+    pies[len(textList) + 2] = {"_STOP": [bestPie, parent_jm1, parent_jm2]}
 
     # backtracking to get sequence
     sequence = []
-    curr = newTag
-    i = len(textList)
+    curr = "_STOP"
+    i = len(textList) + 1
 
     while True:
-        parent = pies[i][curr][1]
+        parent = pies[i + 1][curr][1]
         if parent is None:
-            parent = list(pies[i-1].keys())[0]
+            parent = list(pies[i].keys())[0]
 
-        if "_START" in parent:
+        if parent == "_START":
             break
 
         sequence.append(parent)
         curr = parent
         i -= 1
+
     sequence.reverse()
 
     return sequence
 
 
 # main
-# datasets = ["EN", "FR", "CN", "SG"]
-# for ds in datasets:
-#     datafolder = Path(ds)
-#     trainFile = datafolder / "train"
-#     testFile = datafolder / "dev.in"
-#     outputFile = datafolder / "dev.p3.out"
+datasets = ["EN", "FR", "CN", "SG"]
+for ds in datasets:
+    datafolder = Path(ds)
+    trainFile = datafolder / "train"
+    testFile = datafolder / "dev.in"
+    outputFile = datafolder / "dev.p4.out"
 
-#     emissions = estEmissions(trainFile)
-#     transitions = estTransitions2(trainFile)
-#     dictionary = getDictionary(trainFile)
-#     predictViterbiFile(emissions, transitions, dictionary, testFile, outputFile)
+    emissions = estEmissions(trainFile)
+    transitions = estTransitions2(trainFile)
+    dictionary = getDictionary(trainFile)
+    predictViterbiFile(emissions, transitions, dictionary, testFile, outputFile)
 
-#     print("Output:", outputFile)
-
-# print("Done!")
-trainFile = "train"
-testFile = "test"
-outputFile = "test.p4.out"
-
-emissions = estEmissions(trainFile)
-transitions = estTransitions2(trainFile)
-dictionary = getDictionary(trainFile)
-predictViterbiFile(emissions, transitions, dictionary, testFile, outputFile)
-
-print("Output:", outputFile)
+    print("Output:", outputFile)
 
 print("Done!")
+
+# trainFile = "train"
+# testFile = "test"
+# outputFile = "test.p4.out"
+
+# emissions = estEmissions(trainFile)
+# transitions = estTransitions2(trainFile)
+# dictionary = getDictionary(trainFile)
+# predictViterbiFile(emissions, transitions, dictionary, testFile, outputFile)
+
+# print("Output:", outputFile)
+# print("Done!")
