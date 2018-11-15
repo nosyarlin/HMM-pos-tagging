@@ -107,6 +107,68 @@ def estTransitions(file):
     return transitions
 
 
+def estTransitions2(file):
+    """
+    Given training file, return transition parameters
+
+    @return Dict: {(y_jm2,y_jm1): {y_j: transition}}
+    """
+    start = "_START"
+    stop = "_STOP"
+    transitions = {}
+    yCounts = {start: 0}
+    y_jm2 = start
+    with open(file) as f:
+        for line in f:
+            temp = line.strip()
+
+            # sentence has ended
+            if len(temp) == 0:
+                incrementCount(prev, stop, transitions)
+                prev = start
+
+            # part of a sentence
+            else:
+                # update count(start) and count(start + 1) if new sentence
+                if y_jm2 == start:
+                    yCounts[start] += 1
+                    
+                    # Get first letter 
+                    last_space_index = temp.rfind(" ")
+                    y_jm1 = temp[last_space_index + 1:]
+                    if y_jm1 in yCounts:
+                        yCounts[y_jm1] += 1
+                    else:
+                        yCounts[y_jm1] = 1
+
+                last_space_index2 = temp.rfind(" ")
+                y_j = temp[last_space_index2+1:]
+               
+                # update count(y)
+                if y_j in yCounts:
+                    yCounts[y_j] += 1
+                else:
+                    yCounts[y_j] = 1
+
+                prev = (y_jm2,y_jm1)
+
+                # update count(prev, curr = y_j)
+                incrementCount(prev, y_j, transitions)
+
+                y_jm2 = y_jm1
+                y_jm1 = y_j
+
+        # add count(prev, stop) if no blank lines at EOF
+        if prev != start:
+            incrementCount(prev, stop, transitions)
+            prev = start
+
+    # convert counts to transitions
+    for prev, currDict in transitions.items():
+        for curr, currCount in currDict.items():
+            currDict[curr] = currCount / float(yCounts[prev[0]]) +  currCount / float(yCounts[prev[1]])
+    return transitions
+
 def getDictionary(file):
     """
     Given training file, return set of all words
