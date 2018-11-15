@@ -124,12 +124,15 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
 
     while True:
         parent = pies[i + 1][curr][1]
+        if parent is None:
+            parent = list(pies[i].keys())[0]
+
         if parent == "_START":
             break
-        else:
-            sequence.append(parent)
-            curr = parent
-            i -= 1
+
+        sequence.append(parent)
+        curr = parent
+        i -= 1
     sequence.reverse()
 
     return sequence
