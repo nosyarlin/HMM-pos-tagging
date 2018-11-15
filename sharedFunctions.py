@@ -126,7 +126,7 @@ def estTransitions2(file):
             # sentence has ended
             if len(temp) == 0:
                 incrementCount(prev, stop, transitions)
-                prev = start
+                y_jm2 = start
 
             # part of a sentence
             else:
