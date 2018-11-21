@@ -54,99 +54,96 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
     @return: most probable y sequence for given textList as a list
     """
     # base case
-    tags = emissions.keys()
+    tags = list(emissions.keys())
     tags.append('_START')
     tags.append('_STOP')
-    pies = {}
+    d = {}
     c = {}
-    # pies[i] = {X : [Probabiity, grandparent, parent]}
-    pies[0] = {"_START": { "_None": 1.0}}
-    pies[1] = {"_START": { "_START": 1.0}}
-    pies[2] = {}
 
-    for l in tags:
-        if (isMissing(l,("_START","_START"),transitions)) or \
-           (isMissing(textList[0],l,emissions)) :
+    # b[i] = {X: {parent: b_i(parent, X)}}
+    d[0] = {"_START": {"_None": 1.0}}
+    d[1] = {"_START": {"_START": 1.0}}
+    d[2] = {}
+
+    for tag in tags:
+        if (isMissing(tag, ("_START", "_START"), transitions)) or \
+           (isMissing(textList[0], tag, emissions)):
             tempPie = 0
-        else: 
-            tempPie = transitions[("_START","_START")][l] * emissions[l][textList[0]]
-        pies[2][l] = {"_START": tempPie}
+        else:
+            tempPie = transitions[("_START", "_START")][tag] * emissions[tag][textList[0]]
+        d[2][tag] = {"_START": tempPie}
 
     # forward iterations
     # Calculate log pie to combat underflow problem
-    for i in range(3,len(textList)+2):
+    for i in range(3, len(textList) + 2):
         word = textList[i - 2].lower()
 
         # Replace word with #UNK# if not in train
         if word not in dictionary:
             word = "#UNK#"
-        for parent in tags:
-            for child in tags:
+        for n in tags:
+            for m in tags:
                 bestPie = 0.0
-                l = None               
+                grandparent = None
 
-                for grandparent in tags:
-                    #get probability of child given parent and grandparent 
-                    if parent not in pies[i-1]:
-                        continue
-                    if grandparent not in pies[i-1][parent]:
+                for l in tags:
+                    # Skip if probability of child given parent and grandparent is 0
+                    if isMissing(l, m, d[i - 1]):
                         continue
 
-                    # Skip over words that can't come from currTag and if transition pair doesnt exist
-                    if(isMissing(word,child,emissions) or \
-                       isMissing(child,(grandparent,parent),transitions)):
+                    # Skip over words that can't come from n and if transition pair doesnt exist
+                    if(isMissing(word, n, emissions) or
+                       isMissing(n, (l, m), transitions)):
                         continue
 
                     # Calculate pie
-                    a = transitions[(grandparent,parent)][child]
-                    b = emissions[child][word]
-                    tempPie = pies[i-1][parent][grandparent] * a * b 
+                    a = transitions[(l, m)][n]
+                    b = emissions[n][word]
+                    tempPie = d[i - 1][m][l] * a * b
                     if tempPie > bestPie:
                         bestPie = tempPie
-                        l = grandparent
+                        grandparent = l
 
-
-                # Update pies
-                if i in pies and child in pies[i]:
-                    pies[i][child][parent] = bestPie
-                elif i in pies:
-                    pies[i][child] = {parent: bestPie}
+                # Update d
+                if i in d and n in d[i]:
+                    d[i][n][m] = bestPie
+                elif i in d:
+                    d[i][n] = {m: bestPie}
                 else:
-                    pies[i] = {child: {parent: bestPie}}
+                    d[i] = {n: {m: bestPie}}
 
                 # Update c
                 if i in c:
-                    c[i][(parent, child)] = l
+                    c[i][(m, n)] = grandparent
                 else:
-                    c[i] = {(parent, child): l}
+                    c[i] = {(m, n): grandparent}
 
     # stop case
     bestPie = 0.0
-    l = None
-    m = None
-    for parent in tags:
-        for grandparent in tags:
-            if isMissing(grandparent, parent, pies[len(textList)+1]) or \
-               isMissing(parent, len(textList)+1, pies):
+    grandparent = None
+    parent = None
+    for m in tags:
+        for l in tags:
+            if isMissing(l, m, d[len(textList) + 1]):
                 continue
 
-            if pies[len(textList)+1][parent][grandparent] > bestPie:
-                bestPie = pies[len(textList)+1][parent][grandparent]
-                l = grandparent
-                m = parent
+            if d[len(textList) + 1][m][l] > bestPie:
+                bestPie = d[len(textList) + 1][m][l]
+                grandparent = l
+                parent = m
 
     # backtracking to get sequence
-    sequence = [m, l]
+    sequence = [parent, grandparent]
     i = len(textList) + 1
 
     while True:
-        grandparent = c[i][(l, m)]
-        if grandparent == "_START":
+        l = c[i][(grandparent, parent)]
+        if l == "_START":
             break
 
-        sequence.append(grandparent)
-        m = l
-        l = grandparent
+        sequence.append(l)
+        parent = grandparent
+        grandparent = l
         i -= 1
 
     sequence.reverse()
