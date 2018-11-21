@@ -55,93 +55,98 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
     """
     # base case
     tags = emissions.keys()
+    tags.append('_START')
+    tags.append('_STOP')
     pies = {}
-    pies[0] = {"_START": [0.0, None, None]}
-    pies[1] = {"_START": [0.0, None, None]}
+    c = {}
+    # pies[i] = {X : [Probabiity, grandparent, parent]}
+    pies[0] = {"_START": { "_None": 1.0}}
+    pies[1] = {"_START": { "_START": 1.0}}
+    pies[2] = {}
+
+    for l in tags:
+        if (isMissing(l,("_START","_START"),transitions)) or \
+           (isMissing(textList[0],l,emissions)) :
+            tempPie = 0
+        else: 
+            tempPie = transitions[("_START","_START")][l] * emissions[l][textList[0]]
+        pies[2][l] = {"_START": tempPie}
 
     # forward iterations
     # Calculate log pie to combat underflow problem
-    for i in range(2, len(textList) + 2):
+    for i in range(3,len(textList)+2):
         word = textList[i - 2].lower()
 
         # Replace word with #UNK# if not in train
         if word not in dictionary:
             word = "#UNK#"
+        for parent in tags:
+            for child in tags:
+                bestPie = 0.0
+                l = None               
 
-        for currTag in tags:
-            bestPie = None
-            parent_jm1 = None
-            parent_jm2 = None
-
-            # Skip over words that can't come from currTag
-            if isMissing(word, currTag, emissions):
-                continue
-
-            b = emissions[currTag][word]
-
-            for y_jm2, jm2_Pie in pies[i - 2].items():
-
-                for y_jm1, jm1_Pie in pies[i - 1].items():
-
-                    # Check if transition pair and prevPie exist
-                    if isMissing(currTag, (y_jm2, y_jm1), transitions) or \
-                       jm1_Pie[0] is None:
+                for grandparent in tags:
+                    #get probability of child given parent and grandparent 
+                    if parent not in pies[i-1]:
+                        continue
+                    if grandparent not in pies[i-1][parent]:
                         continue
 
-                    a = transitions[(y_jm2, y_jm1)][currTag]
+                    # Skip over words that can't come from currTag and if transition pair doesnt exist
+                    if(isMissing(word,child,emissions) or \
+                       isMissing(child,(grandparent,parent),transitions)):
+                        continue
 
                     # Calculate pie
-                    tempPie = jm1_Pie[0] + log(a) + log(b)
-
-                    if bestPie is None or tempPie > bestPie:
+                    a = transitions[(grandparent,parent)][child]
+                    b = emissions[child][word]
+                    tempPie = pies[i-1][parent][grandparent] * a * b 
+                    if tempPie > bestPie:
                         bestPie = tempPie
-                        parent_jm1 = y_jm1
-                        parent_jm2 = y_jm2
+                        l = grandparent
 
-            # Update pies
-            if i in pies:
-                pies[i][currTag] = [bestPie, parent_jm1, parent_jm2]
-            else:
-                pies[i] = {currTag: [bestPie, parent_jm1, parent_jm2]}
+
+                # Update pies
+                if i in pies and child in pies[i]:
+                    pies[i][child][parent] = bestPie
+                elif i in pies:
+                    pies[i][child] = {parent: bestPie}
+                else:
+                    pies[i] = {child: {parent: bestPie}}
+
+                # Update c
+                if i in c:
+                    c[i][(parent, child)] = l
+                else:
+                    c[i] = {(parent, child): l}
 
     # stop case
-    bestPie = None
-    parent_jm1 = None
-    parent_jm2 = None
-
-    for y_jm2, jm2_Pie in pies[len(textList)].items():
-
-        for y_jm1, jm1_Pie in pies[len(textList) + 1].items():
-
-            # Check prev can lead to a stop
-            if isMissing("_STOP", (y_jm2, y_jm1), transitions) or \
-               jm1_Pie[0] is None:
+    bestPie = 0.0
+    l = None
+    m = None
+    for parent in tags:
+        for grandparent in tags:
+            if isMissing(grandparent, parent, pies[len(textList)+1]) or \
+               isMissing(parent, len(textList)+1, pies):
                 continue
 
-            a = transitions[(y_jm2, y_jm1)]["_STOP"]
-            tempPie = jm1_Pie[0] + log(a)
-
-            if bestPie is None or tempPie > bestPie:
-                parent_jm1 = y_jm1
-                parent_jm2 = y_jm2
-
-    pies[len(textList) + 2] = {"_STOP": [bestPie, parent_jm1, parent_jm2]}
+            if pies[len(textList)+1][parent][grandparent] > bestPie:
+                bestPie = pies[len(textList)+1][parent][grandparent]
+                l = grandparent
+                m = parent
 
     # backtracking to get sequence
-    sequence = []
-    curr = "_STOP"
+    sequence = [m, l]
     i = len(textList) + 1
 
     while True:
-        parent = pies[i + 1][curr][1]
-        if parent is None:
-            parent = list(pies[i].keys())[0]
-
-        if parent == "_START":
+        grandparent = c[i][(l, m)]
+        if grandparent == "_START":
             break
 
-        sequence.append(parent)
-        curr = parent
+        sequence.append(grandparent)
+        m = l
+        l = grandparent
         i -= 1
 
     sequence.reverse()
@@ -165,15 +170,3 @@ for ds in datasets:
     print("Output:", outputFile)
 
 print("Done!")
-
-# trainFile = "train"
-# testFile = "test"
-# outputFile = "test.p4.out"
-
-# emissions = estEmissions(trainFile)
-# transitions = estTransitions2(trainFile)
-# dictionary = getDictionary(trainFile)
-# predictViterbiFile(emissions, transitions, dictionary, testFile, outputFile)
-
-# print("Output:", outputFile)
-# print("Done!")
