@@ -151,9 +151,10 @@ def estTransitions2(file):
                 y_jm1 = y_j
 
     # convert counts to transitions
-    for prev, currDict in transitions.items():
-        for curr, currCount in currDict.items():
-            currDict[curr] = currCount / float(yCounts[prev])
+    # parents are (y_jm2, y_jm1) pairs, children are possible y_j's
+    for parents, children in transitions.items():
+        for currTag, currCount in children.items():
+            children[currTag] = currCount / float(yCounts[parents])
     return transitions
 
 

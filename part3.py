@@ -71,7 +71,7 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
             bestPie = None
             parent = None
 
-            # Skip over words that can't come from currTag
+            # Check that word can be emitted from currTag
             if isMissing(word, currTag, emissions):
                 continue
 
@@ -79,7 +79,7 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
 
             for prevTag, prevPie in pies[i - 1].items():
 
-                # Check if transition pair and prevPie exist
+                # Check that currTag can transit from prevTag and prevPie exist
                 if isMissing(currTag, prevTag, transitions) or \
                    prevPie[0] is None:
                     continue
