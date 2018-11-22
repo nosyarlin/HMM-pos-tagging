@@ -12,13 +12,13 @@ task = sys.argv[1]
 datasets = ["EN", "FR", "CN", "SG"]
 output = "{}_results".format(task)
 
-with open(output, "w", encoding ='utf-8') as f:
+with open(output, "w", encoding='utf-8') as f:
     f.write("{} Results\n\n\n".format(task.upper()))
     for ds in datasets:
         datafolder = Path(ds)
         predictFile = datafolder / "dev.{}.out".format(task)
         testFile = datafolder / "dev.out"
-        result = os.popen("python evalResult.py {} {}".format(testFile, predictFile)).read()
+        result = os.popen("python3 evalResult.py {} {}".format(testFile, predictFile)).read()
 
         f.write(ds)
         f.write(result)

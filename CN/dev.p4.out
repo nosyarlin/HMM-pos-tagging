@@ -1279,8 +1279,8 @@ SVR O
 ] B-neutral
 [ B-neutral
 噢 B-neutral
-耶 None
-] None
+耶 B-neutral
+] B-neutral
 
 # B-neutral
 鹿晗 B-neutral
@@ -1290,8 +1290,8 @@ p B-neutral
 不 B-neutral
 好看 B-neutral
 不要 B-neutral
-喷 None
-我 None
+喷 B-neutral
+我 B-neutral
 
 【 O
 广汽 B-neutral
@@ -1899,8 +1899,8 @@ GTI B-neutral
 大会 B-neutral
 上 B-neutral
 亮相 B-neutral
-真身 None
-。 None
+真身 B-neutral
+。 B-neutral
 
 今天 O
 成功 O
@@ -3158,8 +3158,8 @@ http://t.cn/RVyiZp2 O
 二哈 B-neutral
 ] B-neutral
 [ B-neutral
-二哈 None
-] None
+二哈 B-neutral
+] B-neutral
 
 来看 O
 NBA B-negative
@@ -3183,8 +3183,8 @@ NBA B-neutral
 你 B-neutral
 来 B-neutral
 拿 B-neutral
-！ None
-http://t.cn/Rc9faDg None
+！ B-neutral
+http://t.cn/Rc9faDg B-neutral
 
 # B-positive
 电影 I-positive
@@ -3470,8 +3470,8 @@ doge O
 三世 B-neutral
 诉说 B-neutral
 的 B-neutral
-十里 None
-桃花 None
+十里 B-neutral
+桃花 B-neutral
 
 # B-positive
 偶滴 I-positive
@@ -3821,8 +3821,8 @@ b O
 爱情故事 B-neutral
 ！ B-neutral
 [ B-neutral
-哈哈 None
-] None
+哈哈 B-neutral
+] B-neutral
 
 【 O
 脑洞 O
@@ -6041,8 +6041,8 @@ ID O
 的 B-neutral
 。 B-neutral
 [ B-neutral
-二哈 None
-] None
+二哈 B-neutral
+] B-neutral
 
 我 O
 正在 O
@@ -6497,8 +6497,8 @@ http://t.cn/RqzgTXo O
 ， B-neutral
 总面积 B-neutral
 68 B-neutral
-平方公里 None
-。 None
+平方公里 B-neutral
+。 B-neutral
 
 Yuki B-positive
 的 I-positive
@@ -8160,8 +8160,8 @@ http://t.cn/zT7OPfF O
 听 B-neutral
 了 B-neutral
 一 B-neutral
-晚上 None
-老歌 None
+晚上 B-neutral
+老歌 B-neutral
 
 江苏 B-neutral
 ： O
@@ -8536,8 +8536,8 @@ http://t.cn/RyhHSQG O
 花 B-neutral
 正品 B-neutral
 特级 B-neutral
-孢子 None
-头 None
+孢子 B-neutral
+头 B-neutral
 
 我 O
 领取 O
@@ -8661,8 +8661,8 @@ mm O
 如同 B-neutral
 世外桃源 B-neutral
 一样 B-neutral
-迷人 None
-。 None
+迷人 B-neutral
+。 B-neutral
 
 攀枝花 B-negative
 ， O
@@ -8972,8 +8972,8 @@ guidi O
 ， B-neutral
 超长 B-neutral
 持久 B-neutral
-20 None
-贴装 None
+20 B-neutral
+贴装 B-neutral
 
 【 O
 小 B-positive
@@ -12342,8 +12342,8 @@ PP B-neutral
 的 B-neutral
 连装 B-neutral
 炮酱 B-neutral
-哦 None
-！ None
+哦 B-neutral
+！ B-neutral
 
 【 O
 丰田 B-neutral
@@ -13207,8 +13207,8 @@ ice B-neutral
 好玩 B-neutral
 哈哈哈 B-neutral
 九宫格 B-neutral
-不够看 None
-呐 None
+不够看 B-neutral
+呐 B-neutral
 
 Gravity B-negative
 Fall I-negative
@@ -15223,8 +15223,8 @@ RcP9Qwx O
 山下 B-neutral
 。 B-neutral
 — B-neutral
-— None
-陈道明 None
+— B-neutral
+陈道明 B-neutral
 
 【 O
 乌兹 O
@@ -15352,8 +15352,8 @@ xin O
 曾经 B-neutral
 的 B-neutral
 最 B-neutral
-爱 None
-。 None
+爱 B-neutral
+。 B-neutral
 
 贝贝奇 B-positive
 裤业 I-positive
@@ -16834,8 +16834,8 @@ QQ O
 真的 B-neutral
 是 B-neutral
 帅呆了 B-neutral
-啊 None
-。 None
+啊 B-neutral
+。 B-neutral
 
 最 O
 怕 O
@@ -18171,8 +18171,8 @@ QQ O
 至今 B-neutral
 无 B-neutral
 科学 B-neutral
-定论 None
-。 None
+定论 B-neutral
+。 B-neutral
 
 上海 B-neutral
 的 O
@@ -20281,8 +20281,8 @@ http://t.cn/RqsYJde O
 详细 B-neutral
 解读 B-neutral
 戳 B-neutral
-： None
-http://t.cn/RVyJ91C None
+： B-neutral
+http://t.cn/RVyJ91C B-neutral
 
 mmh B-negative
 蓝调 O
@@ -20543,8 +20543,8 @@ ing B-neutral
 愉快 B-neutral
 ] B-neutral
 [ B-neutral
-愉快 None
-] None
+愉快 B-neutral
+] B-neutral
 
 大赞 O
 ！ O

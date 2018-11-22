@@ -226,13 +226,13 @@ if len(sys.argv) < 3:
     print ("Usage on Linux/Mac:  python3 evalResult.py [gold file] [prediction file]")
     sys.exit()
 
-gold = open(sys.argv[1], "r", encoding='UTF-8')
-prediction = open(sys.argv[2], "r", encoding='UTF-8')
+gold = open(sys.argv[1], "r", encoding="utf-8")
+prediction = open(sys.argv[2], "r", encoding="utf-8")
 discardInstance = []
 
 
 if len(sys.argv) > 3 and sys.argv[3] == 'filter':
-    filterInst_file = open(sys.argv[1] + '.filter', "r", encoding='UTF-8')
+    filterInst_file = open(sys.argv[1] + '.filter', "r", encoding="utf-8")
     for line in filterInst_file:
         line = line.strip('\n')
         line = line.strip('\r')
