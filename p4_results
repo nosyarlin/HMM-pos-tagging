@@ -3,65 +3,65 @@ P4 Results
 
 EN
 #Entity in gold data: 802
-#Entity in prediction: 893
+#Entity in prediction: 747
 
-#Correct Entity : 544
-Entity  precision: 0.6092
-Entity  recall: 0.6783
-Entity  F: 0.6419
+#Correct Entity : 487
+Entity  precision: 0.6519
+Entity  recall: 0.6072
+Entity  F: 0.6288
 
-#Correct Entity Type : 465
-Entity Type  precision: 0.5207
-Entity Type  recall: 0.5798
-Entity Type  F: 0.5487
+#Correct Entity Type : 428
+Entity Type  precision: 0.5730
+Entity Type  recall: 0.5337
+Entity Type  F: 0.5526
 ________________________________________
 
 
 FR
 #Entity in gold data: 238
-#Entity in prediction: 302
+#Entity in prediction: 273
 
-#Correct Entity : 135
-Entity  precision: 0.4470
-Entity  recall: 0.5672
-Entity  F: 0.5000
+#Correct Entity : 132
+Entity  precision: 0.4835
+Entity  recall: 0.5546
+Entity  F: 0.5166
 
-#Correct Entity Type : 79
-Entity Type  precision: 0.2616
-Entity Type  recall: 0.3319
-Entity Type  F: 0.2926
+#Correct Entity Type : 82
+Entity Type  precision: 0.3004
+Entity Type  recall: 0.3445
+Entity Type  F: 0.3209
 ________________________________________
 
 
 CN
 #Entity in gold data: 1081
-#Entity in prediction: 2040
+#Entity in prediction: 2079
 
-#Correct Entity : 544
-Entity  precision: 0.2667
-Entity  recall: 0.5032
-Entity  F: 0.3486
+#Correct Entity : 504
+Entity  precision: 0.2424
+Entity  recall: 0.4662
+Entity  F: 0.3190
 
-#Correct Entity Type : 347
-Entity Type  precision: 0.1701
-Entity Type  recall: 0.3210
-Entity Type  F: 0.2224
+#Correct Entity Type : 340
+Entity Type  precision: 0.1635
+Entity Type  recall: 0.3145
+Entity Type  F: 0.2152
 ________________________________________
 
 
 SG
 #Entity in gold data: 4092
-#Entity in prediction: 5780
+#Entity in prediction: 4706
 
-#Correct Entity : 1983
-Entity  precision: 0.3431
-Entity  recall: 0.4846
-Entity  F: 0.4017
+#Correct Entity : 1905
+Entity  precision: 0.4048
+Entity  recall: 0.4655
+Entity  F: 0.4331
 
-#Correct Entity Type : 1189
-Entity Type  precision: 0.2057
-Entity Type  recall: 0.2906
-Entity Type  F: 0.2409
+#Correct Entity Type : 1161
+Entity Type  precision: 0.2467
+Entity Type  recall: 0.2837
+Entity Type  F: 0.2639
 ________________________________________
 
 

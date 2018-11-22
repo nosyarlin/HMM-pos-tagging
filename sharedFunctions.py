@@ -23,7 +23,7 @@ def estEmissions(file, k=1):
     emissions = {}
     yCounts = {}
 
-    with open(file) as f:
+    with open(file, encoding="utf-8") as f:
         for line in f:
             temp = line.strip()
 
@@ -65,7 +65,7 @@ def estTransitions(file):
     transitions = {}
     yCounts = {start: 0}
     prev = start
-    with open(file) as f:
+    with open(file, encoding="utf-8") as f:
         for line in f:
             temp = line.strip()
 
@@ -119,7 +119,7 @@ def estTransitions2(file):
     yCounts = {(start, start): 0}
     y_jm2 = start
     y_jm1 = start
-    with open(file) as f:
+    with open(file, encoding="utf-8") as f:
         for line in f:
             temp = line.strip()
 
@@ -165,7 +165,7 @@ def getDictionary(file):
     @return Set: set of all words in file
     """
     out = set()
-    with open(file) as f:
+    with open(file, encoding="utf-8") as f:
         for line in f:
             temp = line.strip()
 

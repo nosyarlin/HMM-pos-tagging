@@ -12,7 +12,7 @@ task = sys.argv[1]
 datasets = ["EN", "FR", "CN", "SG"]
 output = "{}_results".format(task)
 
-with open(output, "w") as f:
+with open(output, "w", encoding ='utf-8') as f:
     f.write("{} Results\n\n\n".format(task.upper()))
     for ds in datasets:
         datafolder = Path(ds)

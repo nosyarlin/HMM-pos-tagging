@@ -39,7 +39,7 @@ resto O
 classe O
 , O
 une O
-cuisine B-positive
+cuisine B-neutral
 très O
 soignée B-neutral
 et O
@@ -64,8 +64,8 @@ Nous O
 avons O
 eu O
 le O
-tort O
-de O
+tort B-neutral
+de I-neutral
 nous O
 rabattre B-neutral
 sur O
@@ -101,7 +101,7 @@ la O
 pâte B-negative
 à O
 friture O
-baignée B-neutral
+baignée O
 de O
 graisse O
 . O
@@ -259,12 +259,12 @@ dessus O
 , O
 ce O
 qui O
-atténuait B-neutral
-l'acidité I-neutral
-du I-neutral
-concentré I-neutral
-de O
-tomates O
+atténuait B-negative
+l'acidité I-negative
+du I-negative
+concentré I-negative
+de I-negative
+tomates I-negative
 ... O
 ! O
 
@@ -351,15 +351,15 @@ le O
 riz B-negative
 au O
 lait O
-vanille I-negative
+vanille O
 sauce O
 caramel O
 beurre O
 salé O
 ( O
 divin O
-) O
-. O
+) None
+. None
 
 Personnel B-positive
 hyper O
@@ -386,7 +386,7 @@ petit O
 bémol O
 pour O
 le O
-service B-neutral
+service B-negative
 . O
 
 Nous O
@@ -437,7 +437,7 @@ c'est O
 difficile O
 de O
 la O
-réussir B-neutral
+réussir O
 . O
 
 Arrivez B-neutral
@@ -457,7 +457,7 @@ sur O
 l O
 ' O
 assaisonnement B-positive
-. I-positive
+. O
 
 Entrées O
 a O
@@ -563,7 +563,7 @@ convivial O
 le O
 tartare O
 est O
-excélent B-neutral
+excélent O
 et O
 les O
 frites B-negative
@@ -684,7 +684,7 @@ cuisine B-positive
 par O
 rapport O
 à O
-l'an B-positive
+l'an O
 dernier O
 car O
 c'est O
@@ -752,8 +752,8 @@ plus O
 le O
 goût O
 du O
-vin B-negative
-. I-negative
+vin O
+. O
 
 Beaucoup O
 trop O
@@ -761,7 +761,7 @@ de O
 tables O
 pour O
 la O
-surface B-neutral
+surface O
 , O
 les O
 clients O
@@ -792,7 +792,7 @@ de O
 choix O
 à O
 la O
-carte B-neutral
+carte O
 , O
 mais O
 c'est O
@@ -808,7 +808,7 @@ de O
 faire O
 des O
 bons O
-plats B-neutral
+plats O
 ! O
 
 Longue O
@@ -817,13 +817,13 @@ encore O
 pour O
 avoir O
 ses O
-boissons B-negative
-. I-negative
+boissons O
+. O
 
 Dessert O
 : O
-mousse O
-aux O
+mousse B-negative
+aux I-negative
 2 O
 chocolats O
 , O
@@ -850,7 +850,7 @@ dans O
 la O
 crème O
 complètement O
-liquide B-positive
+liquide O
 , O
 l O
 ' O
@@ -886,8 +886,8 @@ de O
 choix O
 de O
 notre O
-part B-positive
-. I-positive
+part O
+. O
 
 Ce O
 restaurant B-positive
@@ -904,7 +904,7 @@ sobriété B-negative
 de I-negative
 sa I-negative
 carte I-negative
-. I-negative
+. O
 
 Les O
 plats B-positive
@@ -946,8 +946,8 @@ idéalement O
 placé O
 pour O
 les O
-repas B-neutral
-d'affaires I-neutral
+repas B-positive
+d'affaires I-positive
 . O
 
 Cela O
@@ -971,7 +971,7 @@ pris O
 un O
 menu O
 " O
-galette B-neutral
+galette B-negative
 " O
 ( O
 galette B-negative
@@ -998,8 +998,8 @@ oblige O
 ) O
 d'où O
 une O
-certaine B-neutral
-attente O
+certaine O
+attente B-negative
 qui O
 reste O
 supportable O
@@ -1015,7 +1015,7 @@ prétentieux O
 , O
 pour O
 une O
-somme B-neutral
+somme O
 très O
 correcte O
 . O
@@ -1027,7 +1027,7 @@ eu O
 de O
 seau O
 à O
-glace B-neutral
+glace O
 pour O
 le O
 vin B-negative
@@ -1044,9 +1044,9 @@ on O
 a O
 dû O
 se O
-lever B-neutral
-pour I-neutral
-interpeler I-neutral
+lever O
+pour O
+interpeler O
 les O
 serveuses B-negative
 qui O
@@ -1138,8 +1138,8 @@ la O
 réputation O
 de O
 ce O
-restaurant B-negative
-. I-negative
+restaurant O
+. O
 
 Accueil B-positive
 au O
@@ -1204,8 +1204,8 @@ je O
 ne O
 suis O
 pas O
-étonné O
-de O
+étonné B-neutral
+de I-neutral
 la O
 qualité B-neutral
 du I-neutral
@@ -1229,14 +1229,14 @@ agréable O
 sur O
 une O
 belle O
-terrasse B-negative
-. I-negative
+terrasse B-positive
+. O
 
 Accueil B-positive
 très O
 chaleureuse B-positive
 , O
-service B-neutral
+service B-positive
 impeccable O
 , O
 les O
@@ -1294,7 +1294,7 @@ large O
 , O
 de O
 bons O
-plats B-neutral
+plats O
 chauds O
 et O
 bons O
@@ -1311,9 +1311,9 @@ la O
 salade O
 de O
 fruit O
-acide B-neutral
-et O
-pétillante B-neutral
+acide B-negative
+et I-negative
+pétillante I-negative
 ... O
 je O
 soupconne O
@@ -1325,9 +1325,9 @@ de O
 l'orangina O
 ... O
 
-Menu O
-du O
-jour O
+Menu B-neutral
+du I-neutral
+jour I-neutral
 
 De O
 pire O
@@ -1456,9 +1456,9 @@ filet B-positive
 a I-positive
 25eu I-positive
 servis O
-qu'avec B-neutral
+qu'avec O
 des O
-frites O
+frites B-negative
 , O
 et O
 pas O
@@ -1508,9 +1508,9 @@ avant O
 même O
 d'attendre O
 le O
-plat B-negative
-principal I-negative
-. I-negative
+plat O
+principal O
+. O
 
 Nous O
 avons O
@@ -1524,8 +1524,8 @@ qui O
 a O
 transmis O
 au O
-cuisinier B-negative
-. I-negative
+cuisinier O
+. O
 
 Petite O
 cuisine B-positive
@@ -1535,8 +1535,8 @@ qualité O
 et O
 pas O
 fait O
-maison B-positive
-. I-positive
+maison O
+. O
 
 accueil B-positive
 sympathique O
@@ -1582,7 +1582,7 @@ Et O
 la O
 personne O
 qui O
-m'accompagnait O
+m'accompagnait B-neutral
 , O
 auvergnate B-neutral
 , O
@@ -1726,11 +1726,11 @@ raisonnables O
 
 Dessert O
 : O
-Chtiterolles B-neutral
+Chtiterolles O
 et O
-café B-positive
-gourmand I-positive
-. I-positive
+café O
+gourmand O
+. O
 
 Un O
 restaurant B-positive
@@ -1748,7 +1748,7 @@ peu O
 élevé O
 à O
 la O
-carte B-neutral
+carte O
 sauf O
 pour O
 la O
@@ -1768,8 +1768,8 @@ bourdonnais I-positive
 , O
 c'est O
 pas O
-évident O
-de O
+évident B-neutral
+de I-neutral
 se O
 garer B-neutral
 le O
@@ -1803,7 +1803,7 @@ cuise I-negative
 ! O
 
 Les O
-desserts B-positive
+desserts B-negative
 sont O
 un O
 peu O
@@ -1832,7 +1832,7 @@ Rien O
 à O
 reprocher O
 au O
-service B-neutral
+service B-negative
 si O
 ce O
 n'est O
@@ -1860,8 +1860,8 @@ On O
 aurait O
 du O
 se O
-méfier B-neutral
-du I-neutral
+méfier O
+du O
 restaurant O
 presque O
 vide O
@@ -1872,7 +1872,7 @@ soir O
 
 De O
 bons O
-desserts B-negative
+desserts O
 
 Je O
 vous O
@@ -2011,7 +2011,7 @@ feuilles I-negative
 de I-negative
 salade O
 toutes O
-flétries B-neutral
+flétries O
 pour O
 ne O
 pas O
@@ -2104,7 +2104,7 @@ et O
 certains O
 plats O
 étaient O
-fades B-neutral
+fades O
 . O
 
 Aucune O
@@ -2180,7 +2180,7 @@ d O
 attente B-negative
 pour O
 les O
-desserts B-neutral
+desserts O
 , O
 mais O
 normal O
@@ -2216,7 +2216,7 @@ fait O
 honte O
 à O
 la O
-cuisine B-neutral
+cuisine B-positive
 locale O
 . O
 
@@ -2238,7 +2238,7 @@ d O
 attentes O
 minumum O
 aucun O
-service B-neutral
+service B-negative
 et O
 patronne B-negative
 execrable I-negative
@@ -2328,8 +2328,8 @@ de O
 passage O
 dans O
 le O
-restaurant B-negative
-. I-negative
+restaurant O
+. O
 
 Côté O
 cuisine B-positive
@@ -2379,7 +2379,7 @@ dessert O
 pièce B-positive
 de I-positive
 bœuf I-positive
-de I-positive
+de O
 3 O
 millimètres B-neutral
 d O
@@ -2393,8 +2393,8 @@ goût O
 une O
 honte O
 , O
-desset B-positive
-crème I-positive
+desset O
+crème O
 caramel O
 au O
 beurre O
@@ -2420,7 +2420,7 @@ situé O
 dans O
 la O
 petite O
-Venise O
+Venise B-positive
 avec O
 terrasse B-positive
 au O
@@ -2471,7 +2471,7 @@ ressemble O
 pas O
 à O
 un O
-confit B-neutral
+confit O
 ( O
 ça O
 ressemble O
@@ -2510,7 +2510,7 @@ le O
 midi O
 pour O
 ma O
-pause B-neutral
+pause O
 déjeuné O
 je O
 suis O
@@ -2666,8 +2666,8 @@ frais O
 et O
 le O
 fait O
-maison B-positive
-. I-positive
+maison O
+. O
 
 Je O
 suis O
@@ -2723,14 +2723,14 @@ on O
 y O
 goutte O
 des O
-plats B-neutral
+plats O
 qu'on O
 ne O
 verra O
 pas O
 autre O
-part B-positive
-. I-positive
+part O
+. O
 
 Le O
 bressane B-neutral
@@ -2773,8 +2773,8 @@ vide O
 
 Très O
 bon O
-bistrot B-positive
-. I-positive
+bistrot O
+. O
 
 De O
 plus O
@@ -2787,7 +2787,7 @@ qualité O
 prix O
 pour O
 ce O
-restaurant B-neutral
+restaurant O
 parisien O
 . O
 
@@ -2862,7 +2862,7 @@ de I-neutral
 s'installer I-neutral
 à O
 sa O
-terrasse O
+terrasse B-positive
 , O
 alors O
 que O
@@ -2883,7 +2883,7 @@ avant O
 derniers O
 à O
 pouvoir O
-obtenir B-neutral
+obtenir O
 l'addition O
 , O
 après O
@@ -2961,7 +2961,7 @@ un O
 lieu B-positive
 aussi O
 scandaleux O
-merite O
+merite B-neutral
 d'être O
 dénoncé B-neutral
 . O
@@ -3138,7 +3138,7 @@ avant O
 d'être O
 servis O
 ( O
-45 O
+45 B-neutral
 minutes O
 environ B-neutral
 avant O
@@ -3167,10 +3167,10 @@ moyen O
 on O
 a O
 l'impression O
-d'embêter O
+d'embêter B-positive
 le O
-personnel B-negative
-. I-negative
+personnel B-positive
+. O
 
 l O
 ' O
@@ -3376,7 +3376,7 @@ heureusement O
 Cet O
 endroit B-positive
 mériterait O
-d'etre B-neutral
+d'etre B-positive
 ouvert O
 plus O
 souvent O
@@ -3387,8 +3387,8 @@ de O
 place O
 et O
 du O
-personnel B-negative
-. I-negative
+personnel B-positive
+. O
 
 Vraiment O
 très O
@@ -3450,7 +3450,7 @@ l O
 accueil B-positive
 à O
 la O
-cuisine B-neutral
+cuisine B-positive
 tout O
 est O
 bas O
@@ -3473,7 +3473,7 @@ là O
 . O
 
 bon O
-accueil B-negative
+accueil B-positive
 
 La O
 tartiflette B-neutral
@@ -3586,7 +3586,7 @@ au I-positive
 feu I-positive
 de I-positive
 bois O
-casiement B-neutral
+casiement O
 sous O
 nos O
 yeux O
@@ -3608,8 +3608,8 @@ pas O
 de O
 déception O
 : O
-carte B-neutral
-variée I-neutral
+carte B-positive
+variée I-positive
 , O
 produits B-positive
 frais O
@@ -3664,8 +3664,8 @@ goûteuse O
 avec O
 de O
 bons O
-produits B-negative
-. I-negative
+produits B-positive
+. O
 
 Une O
 table O

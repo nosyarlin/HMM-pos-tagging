@@ -1,6 +1,6 @@
 from pathlib import Path
-from sharedFunctions import estEmissions, estTransitions, getDictionary
 from math import log
+from sharedFunctions import estEmissions, estTransitions, getDictionary
 
 
 def predictViterbiFile(emissions, transitions, dictionary, inputFile, outputFile):

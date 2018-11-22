@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 from pathlib import Path
-from sharedFunctions import estEmissions, estTransitions2, getDictionary
 from math import log
+from sharedFunctions import estEmissions, estTransitions2, getDictionary
+
 
 
 def predictViterbiFile(emissions, transitions, dictionary, inputFile, outputFile):
@@ -14,7 +16,7 @@ def predictViterbiFile(emissions, transitions, dictionary, inputFile, outputFile
     @param inputFile: name of file with unlabelled text
     @param outputFile: name of file to save output of unlabelled text to
     """
-    with open(inputFile) as f, open(outputFile, "w") as out:
+    with open(inputFile, encoding="utf-8") as f, open(outputFile, "w", encoding="utf-8") as out:
         sentence = []
 
         for line in f:
@@ -63,19 +65,10 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
     # b[i] = {X: {parent: b_i(parent, X)}}
     d[0] = {"_START": {"_None": 1.0}}
     d[1] = {"_START": {"_START": 1.0}}
-    d[2] = {}
-
-    for tag in tags:
-        if (isMissing(tag, ("_START", "_START"), transitions)) or \
-           (isMissing(textList[0], tag, emissions)):
-            tempPie = 0
-        else:
-            tempPie = transitions[("_START", "_START")][tag] * emissions[tag][textList[0]]
-        d[2][tag] = {"_START": tempPie}
 
     # forward iterations
     # Calculate log pie to combat underflow problem
-    for i in range(3, len(textList) + 2):
+    for i in range(2, len(textList) + 2):
         word = textList[i - 2].lower()
 
         # Replace word with #UNK# if not in train
@@ -83,7 +76,7 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
             word = "#UNK#"
         for n in tags:
             for m in tags:
-                bestPie = 0.0
+                bestPie = None
                 grandparent = None
 
                 for l in tags:
@@ -93,14 +86,15 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
 
                     # Skip over words that can't come from n and if transition pair doesnt exist
                     if(isMissing(word, n, emissions) or
-                       isMissing(n, (l, m), transitions)):
+                       isMissing(n, (l, m), transitions) or
+                       d[i-1][m][l] is None):
                         continue
 
                     # Calculate pie
                     a = transitions[(l, m)][n]
                     b = emissions[n][word]
-                    tempPie = d[i - 1][m][l] * a * b
-                    if tempPie > bestPie:
+                    tempPie = d[i - 1][m][l] + log(a) + log(b)
+                    if bestPie is None or tempPie > bestPie:
                         bestPie = tempPie
                         grandparent = l
 
@@ -119,15 +113,16 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
                     c[i] = {(m, n): grandparent}
 
     # stop case
-    bestPie = 0.0
+    bestPie = None
     grandparent = None
     parent = None
     for m in tags:
         for l in tags:
-            if isMissing(l, m, d[len(textList) + 1]):
+            if (isMissing(l, m, d[len(textList) + 1]) or
+                d[len(textList) + 1][m][l] is None):
                 continue
 
-            if d[len(textList) + 1][m][l] > bestPie:
+            if bestPie is None or d[len(textList) + 1][m][l] > bestPie:
                 bestPie = d[len(textList) + 1][m][l]
                 grandparent = l
                 parent = m
@@ -135,9 +130,17 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
     # backtracking to get sequence
     sequence = [parent, grandparent]
     i = len(textList) + 1
+    if parent is None: 
+        parent = list(d[i].keys())[0]
+    if grandparent is None: 
+        grandparent = list(d[i][parent].keys())[0]
 
-    while True:
+
+
+    while True: 
         l = c[i][(grandparent, parent)]
+        if l is None:
+            l = list(d[i-2].keys())[0]
         if l == "_START":
             break
 
