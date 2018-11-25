@@ -138,9 +138,10 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
     sequence = [parent, grandparent]
 
     while True:
-        l = c[i][(grandparent, parent)]
-        if l is None:
-            l = list(d[i - 1][grandparent].keys())[0]
+        if isMissing((grandparent, parent), i, c):
+            l = list(d[i - 2].keys())[0]
+        else:
+            l = c[i][(grandparent, parent)]
 
         if l == "_START":
             break

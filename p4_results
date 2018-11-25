@@ -3,65 +3,65 @@ P4 Results
 
 EN
 #Entity in gold data: 802
-#Entity in prediction: 747
+#Entity in prediction: 843
 
-#Correct Entity : 487
-Entity  precision: 0.6519
-Entity  recall: 0.6072
-Entity  F: 0.6288
+#Correct Entity : 540
+Entity  precision: 0.6406
+Entity  recall: 0.6733
+Entity  F: 0.6565
 
-#Correct Entity Type : 428
-Entity Type  precision: 0.5730
-Entity Type  recall: 0.5337
-Entity Type  F: 0.5526
+#Correct Entity Type : 472
+Entity Type  precision: 0.5599
+Entity Type  recall: 0.5885
+Entity Type  F: 0.5739
 ________________________________________
 
 
 FR
 #Entity in gold data: 238
-#Entity in prediction: 273
+#Entity in prediction: 274
 
 #Correct Entity : 132
-Entity  precision: 0.4835
+Entity  precision: 0.4818
 Entity  recall: 0.5546
-Entity  F: 0.5166
+Entity  F: 0.5156
 
 #Correct Entity Type : 82
-Entity Type  precision: 0.3004
+Entity Type  precision: 0.2993
 Entity Type  recall: 0.3445
-Entity Type  F: 0.3209
+Entity Type  F: 0.3203
 ________________________________________
 
 
 CN
 #Entity in gold data: 1081
-#Entity in prediction: 2079
+#Entity in prediction: 1710
 
-#Correct Entity : 504
-Entity  precision: 0.2424
-Entity  recall: 0.4662
-Entity  F: 0.3190
+#Correct Entity : 501
+Entity  precision: 0.2930
+Entity  recall: 0.4635
+Entity  F: 0.3590
 
-#Correct Entity Type : 340
-Entity Type  precision: 0.1635
-Entity Type  recall: 0.3145
-Entity Type  F: 0.2152
+#Correct Entity Type : 338
+Entity Type  precision: 0.1977
+Entity Type  recall: 0.3127
+Entity Type  F: 0.2422
 ________________________________________
 
 
 SG
 #Entity in gold data: 4092
-#Entity in prediction: 4706
+#Entity in prediction: 4748
 
-#Correct Entity : 1905
-Entity  precision: 0.4048
-Entity  recall: 0.4655
-Entity  F: 0.4331
+#Correct Entity : 1914
+Entity  precision: 0.4031
+Entity  recall: 0.4677
+Entity  F: 0.4330
 
-#Correct Entity Type : 1161
-Entity Type  precision: 0.2467
-Entity Type  recall: 0.2837
-Entity Type  F: 0.2639
+#Correct Entity Type : 1167
+Entity Type  precision: 0.2458
+Entity Type  recall: 0.2852
+Entity Type  F: 0.2640
 ________________________________________
 
 
