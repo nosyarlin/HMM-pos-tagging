@@ -1,0 +1,67 @@
+P5 Results
+
+
+EN
+#Entity in gold data: 802
+#Entity in prediction: 592
+
+#Correct Entity : 346
+Entity  precision: 0.5845
+Entity  recall: 0.4314
+Entity  F: 0.4964
+
+#Correct Entity Type : 307
+Entity Type  precision: 0.5186
+Entity Type  recall: 0.3828
+Entity Type  F: 0.4405
+________________________________________
+
+
+FR
+#Entity in gold data: 238
+#Entity in prediction: 276
+
+#Correct Entity : 162
+Entity  precision: 0.5870
+Entity  recall: 0.6807
+Entity  F: 0.6304
+
+#Correct Entity Type : 80
+Entity Type  precision: 0.2899
+Entity Type  recall: 0.3361
+Entity Type  F: 0.3113
+________________________________________
+
+
+CN
+#Entity in gold data: 1081
+#Entity in prediction: 781
+
+#Correct Entity : 270
+Entity  precision: 0.3457
+Entity  recall: 0.2498
+Entity  F: 0.2900
+
+#Correct Entity Type : 198
+Entity Type  precision: 0.2535
+Entity Type  recall: 0.1832
+Entity Type  F: 0.2127
+________________________________________
+
+
+SG
+#Entity in gold data: 4092
+#Entity in prediction: 6110
+
+#Correct Entity : 1679
+Entity  precision: 0.2748
+Entity  recall: 0.4103
+Entity  F: 0.3292
+
+#Correct Entity Type : 852
+Entity Type  precision: 0.1394
+Entity Type  recall: 0.2082
+Entity Type  F: 0.1670
+________________________________________
+
+
