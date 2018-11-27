@@ -20,16 +20,10 @@ def predict(transitions, emissions, words, parent, word):
         if tag not in transitions[parent]:
             continue
 
-        # Sentence has not ended
-        if word != '':
-            if word not in emissions[tag]:
-                continue
-            score = transitions[parent][tag] + emissions[tag][word]
+        if word not in emissions[tag]:
+            continue
 
-        # Sentence has ended
-        else:
-            score = transitions[parent][tag]
-
+        score = transitions[parent][tag] + emissions[tag][word]
         if score > bestScore or bestTag is None:
             bestScore = score
             bestTag = tag
@@ -89,16 +83,13 @@ def train(file, epoch):
         for i in range(epoch):
             prev = "_START"
             for line in f:
-                # New sentence
-                if prev == '_STOP':
-                    prev = '_START'
-
                 temp = line.strip()
 
                 # Sentence has ended
                 if len(temp) == 0:
-                    x = ''
-                    y = '_STOP'
+                    transitions[prev]['_STOP'] += 1
+                    prev = '_START'
+                    continue
 
                 # Sentence has not ended
                 else:
@@ -110,12 +101,10 @@ def train(file, epoch):
                 prediction = predict(transitions, emissions, words, prev, x)
                 if prediction != y:
                     transitions[prev][y] += 1
-                    if y != "_STOP":
-                        emissions[y][x] += 1
+                    emissions[y][x] += 1
 
                     transitions[prev][prediction] -= 1
-                    if prediction != "_STOP" and x != '':
-                        emissions[prediction][x] -= 1
+                    emissions[prediction][x] -= 1
 
                 prev = y
 
@@ -161,7 +150,7 @@ for ds in datasets:
     testFile = datafolder / "dev.in"
     outputFile = datafolder / "dev.p5.out"
 
-    predictAll(trainFile, testFile, outputFile, 5)
+    predictAll(trainFile, testFile, outputFile, 10)
     print("Output:", outputFile)
 
 print("Done!")
