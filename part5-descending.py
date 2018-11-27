@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import os
 
 
+# Perceptron with decreasing learn rate
+
 def predict(transitions, emissions, words, parent, word):
     """
     Given features about a word, return the most likely POS tag
@@ -85,6 +87,7 @@ def train(file, epoch):
     with open(file) as f:
         for i in range(epoch):
             prev = "_START"
+            learn_rate = 1 / (i + 1)
             for line in f:
                 temp = line.strip()
 
@@ -103,11 +106,11 @@ def train(file, epoch):
                 # Predict and update
                 prediction = predict(transitions, emissions, words, prev, x)
                 if prediction != y:
-                    transitions[prev][y] += 1
-                    emissions[y][x] += 1
+                    transitions[prev][y] += learn_rate
+                    emissions[y][x] += learn_rate
 
-                    transitions[prev][prediction] -= 1
-                    emissions[prediction][x] -= 1
+                    transitions[prev][prediction] -= learn_rate
+                    emissions[prediction][x] -= learn_rate
 
                 prev = y
 
@@ -145,40 +148,44 @@ def predictAll(trainFile, testFile, outputFile, epoch):
                 prev = prediction
 
 
-# main
-datasets = ["EN", "FR"]
-for ds in datasets:
-    datafolder = Path(ds)
-    trainFile = datafolder / "train"
-    testFile = datafolder / "dev.in"
-    outputFile = datafolder / "dev.p5.out"
-
-    predictAll(trainFile, testFile, outputFile, 47)
-    print("Output:", outputFile)
-
-print("Done!")
-
-
-# Code for tuning number of epochs
 # # main
 # datasets = ["EN", "FR"]
 # for ds in datasets:
 #     datafolder = Path(ds)
 #     trainFile = datafolder / "train"
 #     testFile = datafolder / "dev.in"
-#     outputFile = datafolder / "dev.p5.out"
+#     outputFile = datafolder / "dev.p6.out"
 
-#     scores = []
-#     for i in range(1, 51):
-#         predictAll(trainFile, testFile, outputFile, i)
-#         results = os.popen("python3 evalResult.py ./{}/dev.out {}".format(ds, outputFile)).read()
-#         results = results.split("\n")
-#         score = float(results[7][-6:]) + float(results[-2][-6:])
-#         scores.append(score)
-
-#     print(scores)
-#     plt.plot(scores)
+#     predictAll(trainFile, testFile, outputFile, 47)
 #     print("Output:", outputFile)
 
-# plt.show(block=True)
 # print("Done!")
+
+
+# Code for tuning number of epochs
+# main
+datasets = ["EN", "FR"]
+for ds in datasets:
+    datafolder = Path(ds)
+    trainFile = datafolder / "train"
+    testFile = datafolder / "dev.in"
+    outputFile = datafolder / "dev.p6.out"
+
+    entity_F = []
+    entity_type_F = []
+    scores = []
+    for i in range(1, 51):
+        predictAll(trainFile, testFile, outputFile, i)
+        results = os.popen("python3 evalResult.py ./{}/dev.out {}".format(ds, outputFile)).read()
+        results = results.split("\n")
+        score = float(results[7][-6:]) + float(results[-2][-6:])
+        scores.append(score)
+        entity_F.append(float(results[7][-6:]))
+        entity_type_F.append(float(results[-2][-6:]))
+
+    print(scores, entity_F, entity_type_F)
+    plt.plot(scores)
+    print("Output:", outputFile)
+
+plt.show(block=True)
+print("Done!")

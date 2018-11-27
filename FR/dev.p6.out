@@ -35,7 +35,7 @@ si O
 vous O
 voulez O
 un O
-resto O
+resto B-positive
 classe O
 , O
 une O
@@ -75,7 +75,7 @@ et I-negative
 un O
 fish O
 and O
-chips O
+chips B-negative
 , O
 erreur O
 fatale O
@@ -83,7 +83,7 @@ fatale O
 burger B-negative
 moyen O
 , O
-frites B-positive
+frites O
 molles O
 et O
 grasses O
@@ -92,7 +92,7 @@ quant O
 au O
 fish O
 and O
-chips O
+chips B-negative
 impression O
 d'ingurgiter O
 uniquement O
@@ -136,7 +136,7 @@ coeur O
 . O
 
 en O
-dessert B-positive
+dessert O
 , O
 en O
 plus O
@@ -294,7 +294,7 @@ nickel O
 . O
 
 attente B-negative
-démesurée I-negative
+démesurée O
 , O
 le O
 vin O
@@ -329,7 +329,7 @@ a O
 ! O
 
 desserts B-negative
-originaux I-negative
+originaux O
 et O
 légers O
 . O
@@ -493,7 +493,7 @@ ne O
 parle O
 pas O
 des O
-accompagnements B-positive
+accompagnements O
 ! O
 
 une O
@@ -535,7 +535,7 @@ régime O
 . O
 
 le O
-personnel B-negative
+personnel B-positive
 est O
 tres O
 attentionné O
@@ -566,7 +566,7 @@ est O
 excélent O
 et O
 les O
-frites B-positive
+frites O
 maison O
 sont O
 a O
@@ -583,7 +583,7 @@ convenable O
 en O
 somme O
 un O
-resto O
+resto B-positive
 où O
 on O
 peut O
@@ -626,7 +626,7 @@ chaudement O
 ! O
 
 le O
-dessert B-positive
+dessert O
 , O
 une O
 soupe O
@@ -812,15 +812,15 @@ plats B-positive
 ! O
 
 longue O
-attente O
+attente B-negative
 encore O
 pour O
 avoir O
 ses O
-boissons O
+boissons B-negative
 . O
 
-dessert B-negative
+dessert B-positive
 : O
 mousse O
 aux O
@@ -836,7 +836,7 @@ sucrée O
 
 choix O
 de O
-dessert B-positive
+dessert O
 quasi O
 inexistant O
 . O
@@ -913,7 +913,7 @@ excellents O
 de O
 l'entrée O
 au O
-dessert B-positive
+dessert O
 . O
 
 les O
@@ -930,7 +930,7 @@ serveur B-negative
 une O
 partie O
 du O
-resto O
+resto B-positive
 et O
 ainsi O
 chacun O
@@ -971,12 +971,12 @@ pris O
 un O
 menu O
 " O
-galette B-negative
-" O
+galette B-neutral
+" I-neutral
 ( O
-galette B-negative
-+ I-negative
-crêpe I-negative
+galette B-neutral
++ O
+crêpe O
 + O
 bolée O
 de O
@@ -989,7 +989,7 @@ cidre B-positive
 . O
 
 patron B-negative
-gentil I-negative
+gentil O
 mais O
 débordé O
 ( O
@@ -999,7 +999,7 @@ oblige O
 d'où O
 une O
 certaine O
-attente O
+attente B-negative
 qui O
 reste O
 supportable O
@@ -1171,7 +1171,7 @@ déçus O
 ! O
 
 les O
-serveurs B-positive
+serveurs O
 sont O
 très O
 souriants O
@@ -1186,7 +1186,7 @@ bon O
 déjeuner O
 . O
 
-service B-negative
+service B-positive
 agréable O
 qui O
 plus O
@@ -1223,7 +1223,7 @@ en O
 coin O
 ) O
 
-service B-negative
+service B-positive
 très O
 agréable O
 sur O
@@ -1300,7 +1300,7 @@ et O
 bons O
 ! O
 
-service B-negative
+service B-positive
 quasiment O
 inexistant O
 . O
@@ -1346,7 +1346,7 @@ ans O
 a O
 gagné O
 en O
-décoration B-positive
+décoration O
 autant O
 qu'elle O
 a O
@@ -1412,8 +1412,8 @@ est O
 parfait O
 , O
 le O
-personnel B-negative
-fort I-negative
+personnel B-positive
+fort O
 sympathique O
 et O
 compétent O
@@ -1452,13 +1452,13 @@ salade O
 , O
 un O
 faux O
-filet B-positive
+filet B-negative
 a O
 25eu O
 servis O
 qu'avec O
 des O
-frites B-positive
+frites O
 , O
 et O
 pas O
@@ -1477,7 +1477,7 @@ bref O
 cadre B-positive
 sympathique O
 , O
-personnel B-negative
+personnel B-positive
 agréable O
 , O
 carte O
@@ -1519,7 +1519,7 @@ la O
 remarque O
 à O
 la O
-serveuse B-negative
+serveuse O
 qui O
 a O
 transmis O
@@ -1724,7 +1724,7 @@ très O
 raisonnables O
 . O
 
-dessert B-negative
+dessert B-positive
 : O
 chtiterolles O
 et O
@@ -1796,8 +1796,8 @@ a O
 même O
 vu O
 une O
-serveuse B-negative
-fumer I-negative
+serveuse O
+fumer O
 en O
 cuise O
 ! O
@@ -1848,7 +1848,7 @@ j'ai O
 mangé O
 un O
 poulet B-negative
-surcruit I-negative
+surcruit O
 et O
 très O
 sec O
@@ -2047,14 +2047,14 @@ exceptionnelle O
 . O
 
 le O
-dessert B-positive
-salade I-positive
+dessert O
+salade O
 fruit O
 , O
 correct O
 . O
 
-service B-negative
+service B-positive
 tres O
 long O
 et O
@@ -2062,7 +2062,7 @@ glacial O
 . O
 
 accueil B-negative
-souriant I-negative
+souriant O
 , O
 service B-positive
 rapide O
@@ -2138,7 +2138,7 @@ nous O
 avons O
 signalé O
 au O
-responsable O
+responsable B-positive
 de O
 salle O
 , O
@@ -2177,8 +2177,8 @@ un O
 peu O
 d O
 ' O
-attente O
-pour O
+attente B-negative
+pour I-negative
 les O
 desserts O
 , O
@@ -2221,7 +2221,7 @@ locale O
 . O
 
 le O
-personnel B-negative
+personnel B-positive
 est O
 attentionné O
 , O
@@ -2307,8 +2307,8 @@ bonne O
 surprise O
 ! O
 
-service B-negative
-attentif I-negative
+service B-positive
+attentif O
 et O
 sympathique O
 . O
@@ -2374,7 +2374,7 @@ menu O
 9.90 O
 plat O
 et O
-dessert B-positive
+dessert O
 : O
 pièce B-negative
 de I-negative
@@ -2744,7 +2744,7 @@ tapas B-positive
 le O
 soir O
 , O
-décoration B-positive
+décoration O
 changeante O
 et O
 parfois O
@@ -2841,7 +2841,7 @@ bien O
 ... O
 
 patron B-negative
-venu I-negative
+venu O
 nous O
 voir O
 en O
@@ -2989,7 +2989,7 @@ mangé O
 , O
 le O
 poulet B-negative
-croustillant I-negative
+croustillant O
 ne O
 l'est O
 pas O
@@ -3042,14 +3042,14 @@ nouveau O
 insulter O
 par O
 le O
-responsable O
+responsable B-positive
 avant O
 qu'il O
 accepte O
 d'encaisser O
 nos O
-boissons O
-et O
+boissons B-negative
+et I-negative
 de O
 nous O
 laisser O
@@ -3133,7 +3133,7 @@ le O
 délai O
 d O
 ' O
-attente O
+attente B-negative
 avant O
 d'être O
 servis O
@@ -3169,7 +3169,7 @@ a O
 l'impression O
 d'embêter O
 le O
-personnel B-negative
+personnel B-positive
 . O
 
 l O
@@ -3212,7 +3212,7 @@ s'enthousiasmer O
 
 la O
 tarte B-negative
-tatin I-negative
+tatin O
 divine O
 
 bref O
@@ -3255,7 +3255,7 @@ avoir O
 toucher O
 à O
 la O
-bouteille B-negative
+bouteille O
 , O
 pour O
 moi O
@@ -3263,8 +3263,8 @@ moi O
 témoigne O
 que O
 le O
-personnel B-negative
-garde I-negative
+personnel B-positive
+garde O
 toujours O
 un O
 oeil O
@@ -3275,7 +3275,7 @@ vous O
 servir O
 . O
 
-endroit B-negative
+endroit B-positive
 sympa O
 en O
 plein O
@@ -3332,7 +3332,7 @@ mettre O
 étoiles O
 à O
 un O
-resto O
+resto B-positive
 " O
 asiatique O
 " O
@@ -3387,7 +3387,7 @@ de O
 place O
 et O
 du O
-personnel B-negative
+personnel B-positive
 . O
 
 vraiment O
@@ -3417,13 +3417,13 @@ bonnes O
 heureusement O
 que O
 le O
-personnel B-negative
+personnel B-positive
 est O
 sympathique O
 . O
 
 la O
-déco B-positive
+déco B-negative
 pourrait O
 être O
 revisité O
@@ -3563,7 +3563,7 @@ climatisée O
 . O
 
 accueil B-negative
-chaleureux I-negative
+chaleureux O
 , O
 arrière O
 salle O
@@ -3581,9 +3581,9 @@ très O
 bonne O
 cuisine O
 , O
-grillades O
-au O
-feu O
+grillades B-positive
+au I-positive
+feu I-positive
 de O
 bois O
 casiement O

@@ -1,0 +1,41 @@
+P6 Results
+
+
+EN
+#Entity in gold data: 802
+#Entity in prediction: 680
+
+#Correct Entity : 485
+Entity  precision: 0.7132
+Entity  recall: 0.6047
+Entity  F: 0.6545
+
+#Correct Entity Type : 443
+Entity Type  precision: 0.6515
+Entity Type  recall: 0.5524
+Entity Type  F: 0.5978
+________________________________________
+
+
+FR
+#Entity in gold data: 238
+#Entity in prediction: 126
+
+#Correct Entity : 88
+Entity  precision: 0.6984
+Entity  recall: 0.3697
+Entity  F: 0.4835
+
+#Correct Entity Type : 54
+Entity Type  precision: 0.4286
+Entity Type  recall: 0.2269
+Entity Type  F: 0.2967
+________________________________________
+
+
+CN________________________________________
+
+
+SG________________________________________
+
+
