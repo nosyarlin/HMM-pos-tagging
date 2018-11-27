@@ -20,16 +20,10 @@ def predict(transitions, emissions, words, parent, word):
         if tag not in transitions[parent]:
             continue
 
-        # Sentence has not ended
-        if word != '':
-            if word not in emissions[tag]:
-                continue
-            score = transitions[parent][tag] + emissions[tag][word]
+        if word not in emissions[tag]:
+            continue
 
-        # Sentence has ended
-        else:
-            score = transitions[parent][tag]
-
+        score = transitions[parent][tag] + emissions[tag][word]
         if score > bestScore or bestTag is None:
             bestScore = score
             bestTag = tag
@@ -89,16 +83,13 @@ def train(file, epoch):
         for i in range(epoch):
             prev = "_START"
             for line in f:
-                # New sentence
-                if prev == '_STOP':
-                    prev = '_START'
-
                 temp = line.strip()
 
                 # Sentence has ended
                 if len(temp) == 0:
-                    x = ''
-                    y = '_STOP'
+                    transitions[prev]['_STOP'] += 1
+                    prev = '_START'
+                    continue
 
                 # Sentence has not ended
                 else:
@@ -110,18 +101,116 @@ def train(file, epoch):
                 prediction = predict(transitions, emissions, words, prev, x)
                 if prediction != y:
                     transitions[prev][y] += 1
-                    if y != "_STOP":
-                        emissions[y][x] += 1
+                    emissions[y][x] += 1
 
                     transitions[prev][prediction] -= 1
-                    if prediction != "_STOP" and x != '':
-                        emissions[prediction][x] -= 1
+                    emissions[prediction][x] -= 1
 
                 prev = y
 
             f.seek(0)
 
     return transitions, emissions, words
+
+
+def isMissing(child, parent, d):
+    """
+    Returns whether child is not related to parent in dictionary d
+
+    @return: True if child not found under parent in d
+    """
+    return (parent not in d) or (child not in d[parent]) or (d[parent][child] is None)
+
+
+def predictViterbi(transitions, emissions, dictionary, sentence):
+    """
+    Predicts sentiments for a list of words using the
+    Viterbi algorithm
+    """
+    # base case
+    tags = emissions.keys()
+    pies = {}
+    pies[0] = {'_START': [0.0, None]}
+
+    # forward iterations
+    for i in range(1, len(sentence) + 1):
+        word = sentence[i - 1].lower()
+
+        # Replace word with #UNK# if not in train
+        if word not in dictionary:
+            word = "#UNK#"
+
+        for currTag in tags:
+            bestPie = None
+            parent = None
+
+            # Check that word can be emitted from currTag
+            if isMissing(word, currTag, emissions):
+                continue
+
+            b = emissions[currTag][word]
+
+            for prevTag, prevPie in pies[i - 1].items():
+
+                # Check that currTag can transit from prevTag and prevPie exist
+                if isMissing(currTag, prevTag, transitions) or \
+                   prevPie[0] is None:
+                    continue
+
+                a = transitions[prevTag][currTag]
+
+                # Calculate pie
+                tempPie = prevPie[0] + a + b
+
+                if bestPie is None or tempPie > bestPie:
+                    bestPie = tempPie
+                    parent = prevTag
+
+            # Update pies
+            if i in pies:
+                pies[i][currTag] = [bestPie, parent]
+            else:
+                pies[i] = {currTag: [bestPie, parent]}
+
+    # stop case
+    bestPie = None
+    parent = None
+
+    for prevTag, prevPie in pies[len(sentence)].items():
+
+        if prevPie[0] is None:
+            continue
+
+        # Check prev can lead to a stop
+        if "_STOP" in transitions[prevTag]:
+            a = transitions[prevTag]["_STOP"]
+
+            tempPie = prevPie[0] + a
+            if bestPie is None or tempPie > bestPie:
+                bestPie = tempPie
+                parent = prevTag
+
+    pies[len(sentence) + 1] = {"_STOP": [bestPie, parent]}
+
+    # backtracking to get sequence
+    sequence = []
+    curr = "_STOP"
+    i = len(sentence)
+
+    while True:
+        parent = pies[i + 1][curr][1]
+        if parent is None:
+            parent = list(pies[i].keys())[0]
+
+        if parent == "_START":
+            break
+
+        sequence.append(parent)
+        curr = parent
+        i -= 1
+    sequence.reverse()
+
+    return sequence
 
 
 def predictAll(trainFile, testFile, outputFile, epoch):
@@ -134,23 +223,21 @@ def predictAll(trainFile, testFile, outputFile, epoch):
     with open(testFile, encoding="utf-8") as f,\
          open(outputFile, "w", encoding="utf-8") as out:
 
-        prev = "_START"
+        sentence = []
+
         for line in f:
-            temp = line.strip()
+            # form sentence
+            if line != "\n":
+                word = line.strip()
+                sentence.append(word)
 
-            # Sentence has ended
-            if len(temp) == 0:
-                out.write("\n")
-                prev = "_START"
-
-            # Sentence has not ended
+            # predict tag sequence
             else:
-                word = temp.lower()
-
-                # find most likely tag for word
-                prediction = predict(transitions, emissions, words, prev, word)
-                out.write("{} {}\n".format(word, prediction))
-                prev = prediction
+                sequence = predictViterbi(transitions, emissions, words, sentence)
+                for i in range(len(sequence)):
+                    out.write("{} {}\n".format(sentence[i], sequence[i]))
+                out.write("\n")
+                sentence = []
 
 
 # main
