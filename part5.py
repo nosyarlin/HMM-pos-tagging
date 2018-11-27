@@ -1,5 +1,4 @@
 from pathlib import Path
-import os
 
 
 def predict(transitions, emissions, words, parent, word):
@@ -21,11 +20,17 @@ def predict(transitions, emissions, words, parent, word):
         if tag not in transitions[parent]:
             continue
 
-        if word not in emissions[tag]:
-            continue
+        # Sentence has not ended
+        if word != '':
+            if word not in emissions[tag]:
+                continue
+            score = transitions[parent][tag] + emissions[tag][word]
 
-        score = transitions[parent][tag] + emissions[tag][word]
-        if score >= bestScore:
+        # Sentence has ended
+        else:
+            score = transitions[parent][tag]
+
+        if score > bestScore or bestTag is None:
             bestScore = score
             bestTag = tag
 
@@ -37,7 +42,7 @@ def initParams(file):
     Get all possible tokens and words
     and initialize transitions and emissions
     """
-    tokens = {'_START'}
+    tokens = set()
     words = {'#UNK#'}
     with open(file) as f:
         for line in f:
@@ -56,8 +61,8 @@ def initParams(file):
 
     transitions = {}
     emissions = {}
-    for u in tokens:
-        for v in tokens:
+    for u in tokens.union({'_START'}):
+        for v in tokens.union({'_STOP'}):
             if u not in transitions:
                 transitions[u] = {v: 0}
             else:
@@ -84,25 +89,33 @@ def train(file, epoch):
         for i in range(epoch):
             prev = "_START"
             for line in f:
+                # New sentence
+                if prev == '_STOP':
+                    prev = '_START'
+
                 temp = line.strip()
 
-                # ignore empty lines
+                # Sentence has ended
                 if len(temp) == 0:
-                    prev = "_START"
-                    continue
+                    x = ''
+                    y = '_STOP'
 
-                last_space_index = temp.rfind(" ")
-                x = temp[:last_space_index].lower()
-                y = temp[last_space_index + 1:]
+                # Sentence has not ended
+                else:
+                    last_space_index = temp.rfind(" ")
+                    x = temp[:last_space_index].lower()
+                    y = temp[last_space_index + 1:]
 
                 # Predict and update
                 prediction = predict(transitions, emissions, words, prev, x)
                 if prediction != y:
                     transitions[prev][y] += 1
-                    emissions[y][x] += 1
+                    if y != "_STOP":
+                        emissions[y][x] += 1
 
                     transitions[prev][prediction] -= 1
-                    emissions[prediction][x] -= 1
+                    if prediction != "_STOP" and x != '':
+                        emissions[prediction][x] -= 1
 
                 prev = y
 
@@ -112,6 +125,10 @@ def train(file, epoch):
 
 
 def predictAll(trainFile, testFile, outputFile, epoch):
+    """
+    Given a file of sentences, predict POS tag sequences
+    for each sentence using Viterbi Algorithm
+    """
     transitions, emissions, words = train(trainFile, epoch)
 
     with open(testFile, encoding="utf-8") as f,\
@@ -121,27 +138,30 @@ def predictAll(trainFile, testFile, outputFile, epoch):
         for line in f:
             temp = line.strip()
 
-            # ignore empty lines
+            # Sentence has ended
             if len(temp) == 0:
                 out.write("\n")
+                prev = "_START"
 
+            # Sentence has not ended
             else:
                 word = temp.lower()
 
                 # find most likely tag for word
                 prediction = predict(transitions, emissions, words, prev, word)
                 out.write("{} {}\n".format(word, prediction))
+                prev = prediction
 
 
 # main
-datasets = ["FR"]
+datasets = ["EN", "FR"]
 for ds in datasets:
     datafolder = Path(ds)
     trainFile = datafolder / "train"
     testFile = datafolder / "dev.in"
     outputFile = datafolder / "dev.p5.out"
 
-    predictAll(trainFile, testFile, outputFile, 10)
+    predictAll(trainFile, testFile, outputFile, 5)
     print("Output:", outputFile)
 
 print("Done!")

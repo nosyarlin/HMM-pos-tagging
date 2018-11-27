@@ -3,33 +3,33 @@ P5 Results
 
 EN
 #Entity in gold data: 802
-#Entity in prediction: 592
+#Entity in prediction: 725
 
-#Correct Entity : 346
-Entity  precision: 0.5845
-Entity  recall: 0.4314
-Entity  F: 0.4964
+#Correct Entity : 476
+Entity  precision: 0.6566
+Entity  recall: 0.5935
+Entity  F: 0.6234
 
-#Correct Entity Type : 307
-Entity Type  precision: 0.5186
-Entity Type  recall: 0.3828
-Entity Type  F: 0.4405
+#Correct Entity Type : 415
+Entity Type  precision: 0.5724
+Entity Type  recall: 0.5175
+Entity Type  F: 0.5435
 ________________________________________
 
 
 FR
 #Entity in gold data: 238
-#Entity in prediction: 276
+#Entity in prediction: 487
 
-#Correct Entity : 162
-Entity  precision: 0.5870
-Entity  recall: 0.6807
-Entity  F: 0.6304
+#Correct Entity : 122
+Entity  precision: 0.2505
+Entity  recall: 0.5126
+Entity  F: 0.3366
 
-#Correct Entity Type : 80
-Entity Type  precision: 0.2899
-Entity Type  recall: 0.3361
-Entity Type  F: 0.3113
+#Correct Entity Type : 60
+Entity Type  precision: 0.1232
+Entity Type  recall: 0.2521
+Entity Type  F: 0.1655
 ________________________________________
 
 
