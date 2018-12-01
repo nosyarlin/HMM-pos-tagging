@@ -1,7 +1,9 @@
 from pathlib import Path
+import os
+import matplotlib.pyplot as plt
 
 
-def predict(transitions, emissions, words, parent, word):
+def predict(transitions, emissions, words, tokens, parent, word):
     """
     Given features about a word, return the most likely POS tag
 
@@ -9,14 +11,13 @@ def predict(transitions, emissions, words, parent, word):
     @param emissions: dict of emission scores
     @return: Most likely tag
     """
-    tags = list(emissions.keys())
     bestScore = 0
     bestTag = None
 
     if word not in words:
         word = "#UNK#"
 
-    for tag in tags:
+    for tag in tokens:
         if tag not in transitions[parent]:
             continue
 
@@ -69,7 +70,9 @@ def initParams(file):
             else:
                 emissions[u][word] = 0
 
-    return transitions, emissions, words
+    tokens = {token: 0 for token in tokens}
+
+    return transitions, emissions, words, tokens
 
 
 def train(file, epoch):
@@ -77,11 +80,28 @@ def train(file, epoch):
     Given training file, return transitions and emissions
     trained using perceptron algorithm
     """
-    transitions, emissions, words = initParams(file)
+    transitions, emissions, words, tokens = initParams(file)
 
     with open(file) as f:
+        # sort tokens
+        for line in f:
+            temp = line.strip()
+
+            if len(temp) == 0:
+                continue
+
+            last_space_index = temp.rfind(" ")
+            y = temp[last_space_index + 1:]
+            tokens[y] += 1
+        f.seek(0)
+
+        sortedTokens = list(tokens.keys())
+        sortedTokens.sort(key=lambda x: tokens[x], reverse=True)
+
+        # train weights
         for i in range(epoch):
             prev = "_START"
+            learnrate = 1 / (i + 1)
             for line in f:
                 temp = line.strip()
 
@@ -96,21 +116,23 @@ def train(file, epoch):
                     last_space_index = temp.rfind(" ")
                     x = temp[:last_space_index].lower()
                     y = temp[last_space_index + 1:]
+                    tokens[y] += 1
 
                 # Predict and update
-                prediction = predict(transitions, emissions, words, prev, x)
+                prediction = predict(transitions, emissions, words,
+                                     sortedTokens, prev, x)
                 if prediction != y:
-                    transitions[prev][y] += 1
-                    emissions[y][x] += 1
+                    transitions[prev][y] += learnrate
+                    emissions[y][x] += learnrate
 
-                    transitions[prev][prediction] -= 1
-                    emissions[prediction][x] -= 1
+                    transitions[prev][prediction] -= learnrate
+                    emissions[prediction][x] -= learnrate
 
                 prev = y
 
             f.seek(0)
 
-    return transitions, emissions, words
+    return transitions, emissions, words, sortedTokens
 
 
 def isMissing(child, parent, d):
@@ -122,13 +144,12 @@ def isMissing(child, parent, d):
     return (parent not in d) or (child not in d[parent]) or (d[parent][child] is None)
 
 
-def predictViterbi(transitions, emissions, dictionary, sentence):
+def predictViterbi(transitions, emissions, dictionary, tags, sentence):
     """
     Predicts sentiments for a list of words using the
     Viterbi algorithm
     """
     # base case
-    tags = emissions.keys()
     pies = {}
     pies[0] = {'_START': [0.0, None]}
 
@@ -218,7 +239,7 @@ def predictAll(trainFile, testFile, outputFile, epoch):
     Given a file of sentences, predict POS tag sequences
     for each sentence using Viterbi Algorithm
     """
-    transitions, emissions, words = train(trainFile, epoch)
+    transitions, emissions, words, tokens = train(trainFile, epoch)
 
     with open(testFile, encoding="utf-8") as f,\
          open(outputFile, "w", encoding="utf-8") as out:
@@ -233,7 +254,7 @@ def predictAll(trainFile, testFile, outputFile, epoch):
 
             # predict tag sequence
             else:
-                sequence = predictViterbi(transitions, emissions, words, sentence)
+                sequence = predictViterbi(transitions, emissions, words, tokens, sentence)
                 for i in range(len(sequence)):
                     out.write("{} {}\n".format(sentence[i], sequence[i]))
                 out.write("\n")
@@ -248,7 +269,40 @@ for ds in datasets:
     testFile = datafolder / "dev.in"
     outputFile = datafolder / "dev.p5.out"
 
-    predictAll(trainFile, testFile, outputFile, 5)
+    epochs = 6
+    if ds == "FR":
+        epochs = 1
+
+    predictAll(trainFile, testFile, outputFile, epochs)
     print("Output:", outputFile)
 
 print("Done!")
+
+
+# # Code for tuning number of epochs
+# # main
+# datasets = ["EN", "FR"]
+# for ds in datasets:
+#     datafolder = Path(ds)
+#     trainFile = datafolder / "train"
+#     testFile = datafolder / "dev.in"
+#     outputFile = datafolder / "dev.p6.out"
+
+#     entity_F = []
+#     entity_type_F = []
+#     scores = []
+#     for i in range(1, 30):
+#         predictAll(trainFile, testFile, outputFile, i)
+#         results = os.popen("python3 evalResult.py ./{}/dev.out {}".format(ds, outputFile)).read()
+#         results = results.split("\n")
+#         score = float(results[7][-6:]) + float(results[-2][-6:])
+#         scores.append(score)
+#         entity_F.append(float(results[7][-6:]))
+#         entity_type_F.append(float(results[-2][-6:]))
+
+#     print(scores, entity_F, entity_type_F)
+#     plt.plot(scores)
+#     print("Output:", outputFile)
+
+# plt.show(block=True)
+# print("Done!")
