@@ -40,11 +40,14 @@ We decided to write a script that runs evalResult.py on our predictions for all 
 python evalAll.py p[2/3/4/5]
 ```
 
-The argument after evalAll.py specifies which part to run evalResult.py for. 
+The argument after evalAll.py specifies which part to run evalResult.py for. The results would be saved in the main directory as p[2/3/4/5]\_results
 
 ## Authors
 SUTD ISTD Class of 2019
+
 [Rayson Lim 1002026](https://github.com/nosyarlin)
+
 [Kimberlyn Loh 1002221](https://github.com/kimb3rlyn)
+
 [Angelia Lau 1002417](https://github.com/angelialau)
 
