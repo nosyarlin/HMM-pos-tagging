@@ -167,18 +167,28 @@ def predictAll(trainFile, testFile, outputFile, epoch):
 
 
 # main
-datasets = ["EN", "FR", "CN", "SG"]
-for ds in datasets:
-    datafolder = Path(ds)
-    trainFile = datafolder / "train"
-    testFile = datafolder / "dev.in"
-    outputFile = datafolder / "dev.p5.out"
+folder = input("Which language do you wish to use? (EN/FR/CN/SG) \n")
+dataset = input("dev, test or test2? \n")
 
+if folder.upper() not in ["EN", "FR", "CN", "SG"]:
+    print("Please choose either EN, FR, CN or SG")
+
+elif dataset.lower() not in ["dev", "test", "test2"]:
+    print("Please choose either dev, test or test2")
+
+else:
+    # Prepare file paths
+    datafolder = Path(folder.upper())
+    trainFile = datafolder / "train"
+    testFile = datafolder / "{}.in".format(dataset.lower())
+    outputFile = datafolder / "{}.p5.out".format(dataset.lower())
+
+    # Train and predict
     epochs = 20
-    if ds == "FR":
+    if folder == "FR":
         epochs = 23
 
     predictAll(trainFile, testFile, outputFile, epochs)
-    print("Output:", outputFile)
 
-print("Done!")
+    print("Output:", outputFile)
+    print("Done!")
