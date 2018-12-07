@@ -41,23 +41,16 @@ def predictSentiments(emissions, testfile, outputfile="dev.p2.out"):
 
 
 # main
-runAll = input("Want to run for all datasets EN, FR, CN, SG? (y/n)\n")
-if (runAll.strip()).lower() == "y":
-    datasets = ["EN", "FR", "CN", "SG"]
-    for ds in datasets:
-        datafolder = Path(ds)
-        trainfile = datafolder / "train"
-        testfile = datafolder / "dev.in"
-        outputfile = datafolder / "dev.p2.out"
-        emissions = estEmissions(trainfile)
-        predictSentiments(emissions, testfile, outputfile)
-        print("Output:", outputfile)
-    print("Done!")
+datasets = ["EN", "FR", "CN", "SG"]
+for ds in datasets:
+    datafolder = Path(ds)
+    trainFile = datafolder / "train"
+    testFile = datafolder / "dev.in"
+    outputFile = datafolder / "dev.p2.out"
 
-else:
-    trainfile = input("Please give me the file path for the training set: \n")
-    testfile = input("Please give me the file path for the testing set: \n")
-    print("Training:", trainfile, "\nTesting:", testfile)
-    emissions = estEmissions(trainfile)
-    predictSentiments(emissions, testfile)
-    print("Output: dev.p2.out \nDone!")
+    emissions = estEmissions(trainFile)
+    predictSentiments(emissions, testFile, outputFile)
+
+    print("Output:", outputFile)
+
+print("Done!")
