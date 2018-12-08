@@ -3,65 +3,65 @@ P4 Results
 
 EN
 #Entity in gold data: 802
-#Entity in prediction: 843
+#Entity in prediction: 839
 
-#Correct Entity : 540
-Entity  precision: 0.6406
-Entity  recall: 0.6733
-Entity  F: 0.6565
+#Correct Entity : 541
+Entity  precision: 0.6448
+Entity  recall: 0.6746
+Entity  F: 0.6594
 
-#Correct Entity Type : 472
-Entity Type  precision: 0.5599
-Entity Type  recall: 0.5885
-Entity Type  F: 0.5739
+#Correct Entity Type : 475
+Entity Type  precision: 0.5662
+Entity Type  recall: 0.5923
+Entity Type  F: 0.5789
 ________________________________________
 
 
 FR
 #Entity in gold data: 238
-#Entity in prediction: 274
+#Entity in prediction: 272
 
 #Correct Entity : 132
-Entity  precision: 0.4818
+Entity  precision: 0.4853
 Entity  recall: 0.5546
-Entity  F: 0.5156
+Entity  F: 0.5176
 
 #Correct Entity Type : 82
-Entity Type  precision: 0.2993
+Entity Type  precision: 0.3015
 Entity Type  recall: 0.3445
-Entity Type  F: 0.3203
+Entity Type  F: 0.3216
 ________________________________________
 
 
 CN
 #Entity in gold data: 1081
-#Entity in prediction: 1710
+#Entity in prediction: 1707
 
 #Correct Entity : 501
-Entity  precision: 0.2930
+Entity  precision: 0.2935
 Entity  recall: 0.4635
-Entity  F: 0.3590
+Entity  F: 0.3594
 
-#Correct Entity Type : 338
-Entity Type  precision: 0.1977
-Entity Type  recall: 0.3127
-Entity Type  F: 0.2422
+#Correct Entity Type : 340
+Entity Type  precision: 0.1992
+Entity Type  recall: 0.3145
+Entity Type  F: 0.2439
 ________________________________________
 
 
 SG
 #Entity in gold data: 4092
-#Entity in prediction: 4748
+#Entity in prediction: 4483
 
-#Correct Entity : 1914
-Entity  precision: 0.4031
-Entity  recall: 0.4677
-Entity  F: 0.4330
+#Correct Entity : 1967
+Entity  precision: 0.4388
+Entity  recall: 0.4807
+Entity  F: 0.4588
 
-#Correct Entity Type : 1167
-Entity Type  precision: 0.2458
-Entity Type  recall: 0.2852
-Entity Type  F: 0.2640
+#Correct Entity Type : 1219
+Entity Type  precision: 0.2719
+Entity Type  recall: 0.2979
+Entity Type  F: 0.2843
 ________________________________________
 
 

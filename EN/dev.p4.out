@@ -105,7 +105,7 @@ think B-VP
 you'r B-NP
 serious I-NP
 . O
-noobs B-INTJ
+noobs O
 . O
 
 fckn B-INTJ
@@ -146,7 +146,7 @@ earlier I-ADVP
 in B-PP
 Lo B-ADVP
 ... O
-http://bit.ly/bsyz9H B-ADVP
+http://bit.ly/bsyz9H B-INTJ
 
 Lmao B-INTJ
 .. O
@@ -216,7 +216,7 @@ wanna B-VP
 help I-VP
 with B-PP
 the B-NP
-dishes I-NP
+dishes O
 
 Got B-VP
 another B-NP
@@ -328,7 +328,7 @@ have I-VP
 a B-NP
 shoegasm B-PP
 today B-NP
-hahahaha I-NP
+hahahaha O
 
 even B-ADJP
 better I-ADJP
@@ -386,7 +386,7 @@ have I-VP
 no B-NP
 hot B-ADJP
 water B-NP
-uggghh B-VP
+uggghh O
 
 @hime8644 O
 LOL B-INTJ
@@ -467,7 +467,7 @@ is B-VP
 so B-ADJP
 mar I-ADJP
 ... O
-http://bit.ly/cBvt1u B-SBAR
+http://bit.ly/cBvt1u B-INTJ
 
 @ashhleybrookee B-VP
 it B-NP
@@ -496,7 +496,7 @@ when B-ADVP
 i B-NP
 went B-VP
 to I-VP
-lhs I-VP
+lhs B-PRT
 
 RT O
 @DamnTeenQuotes B-INTJ
@@ -524,7 +524,7 @@ Josh B-NP
 was B-VP
 fat I-NP
 . I-NP
-#damnteenquotes I-PP
+#damnteenquotes O
 
 [ O
 GigaOM B-INTJ
@@ -554,8 +554,8 @@ http://bit.ly/blWf0e B-INTJ
 
 Friday B-NP
 Night I-NP
-Eats B-CONJP
-http://twitpic.com/2pdvtr I-CONJP
+Eats B-INTJ
+http://twitpic.com/2pdvtr I-INTJ
 
 I B-NP
 remember B-VP
@@ -593,7 +593,7 @@ shelter I-NP
 on B-PP
 Jan B-NP
 6 I-NP
-http://fragurl.com/5P B-CONJP
+http://fragurl.com/5P B-INTJ
 
 I B-NP
 have B-VP
@@ -731,8 +731,8 @@ Just B-ADVP
 belched I-ADVP
 . O
 Loudly B-INTJ
-. O
-+1 B-INTJ
+. I-INTJ
++1 I-INTJ
 
 RT O
 @JupiterStorm B-INTJ
@@ -802,7 +802,7 @@ workz I-NP
 al I-NP
 d B-NP
 time I-NP
-:-D B-CONJP
+:-D B-INTJ
 
 @keancipriano B-ADVP
 hey B-INTJ
@@ -894,9 +894,9 @@ get I-VP
 cheap B-ADJP
 brooms I-ADJP
 ? O
-#Ryerson B-SBAR
-@RUQuidditch I-SBAR
-#Rams B-NP
+#Ryerson B-INTJ
+@RUQuidditch I-INTJ
+#Rams I-INTJ
 
 @yoopergirl89 B-INTJ
 Yeah I-INTJ
@@ -945,7 +945,7 @@ your B-NP
 a B-ADJP
 freaking I-ADJP
 ... O
-http://tumblr.com/xmciuda0t B-SBAR
+http://tumblr.com/xmciuda0t B-INTJ
 
 Our B-NP
 Favorite I-NP
@@ -956,8 +956,8 @@ Week I-NP
 : O
 The B-NP
 Drama B-NP
-Edition B-SBAR
-http://dlvr.it/5RfHy I-SBAR
+Edition B-INTJ
+http://dlvr.it/5RfHy I-INTJ
 
 I B-NP
 just B-ADVP
@@ -1049,15 +1049,15 @@ days I-NP
 , I-NP
 hours I-NP
 , O
-mintues O
+mintues B-INTJ
 __AND__ O
-seconds O
-till B-SBAR
+seconds B-INTJ
+till B-PP
 Feb B-NP
-9th B-VP
+9th I-NP
 ! O
-#purpleglasses B-SBAR
-http://twitpic.com/3nouem I-SBAR
+#purpleglasses B-INTJ
+http://twitpic.com/3nouem I-INTJ
 
 i B-NP
 see B-VP
@@ -1176,7 +1176,7 @@ Story I-NP
 at B-PP
 7pm B-NP
 tonight B-NP
-http://bit.ly/hLAnXp B-VP
+http://bit.ly/hLAnXp O
 
 @joejonas B-ADJP
 @nickjonas I-ADJP
@@ -1399,7 +1399,7 @@ Less B-NP
 is B-VP
 More B-ADJP
 - O
-http://ow.ly/2FwyX B-SBAR
+http://ow.ly/2FwyX B-INTJ
 
 No B-NP
 bike I-NP

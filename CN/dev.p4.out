@@ -960,8 +960,8 @@ doge O
 [ O
 doge O
 ] O
-# B-positive
-金硕珍 I-positive
+# B-neutral
+金硕珍 I-neutral
 # O
 
 http://t.cn/RcQquVd别订 O
@@ -2339,8 +2339,8 @@ http://t.cn/R2Wxpm9 O
 @ B-neutral
 头条 I-neutral
 博客 I-neutral
-) O
-- O
+) I-neutral
+- I-neutral
 http://t.cn/RVUWrJF O
 
 53.9 O
@@ -3611,7 +3611,7 @@ _ O
 。 O
 — O
 — O
-白哲特 B-positive
+白哲特 B-neutral
 
 新华 B-positive
 园 I-positive
@@ -5424,11 +5424,11 @@ http://t.cn/R2Wxn5n O
 香甜 O
 柔软 O
 的 O
-戚风 B-neutral
-蛋糕 I-neutral
-吧 I-neutral
-~ I-neutral
-http://t.cn/RVykggY I-neutral
+戚风 O
+蛋糕 O
+吧 O
+~ O
+http://t.cn/RVykggY O
 
 网络 O
 舆论 O
@@ -5857,9 +5857,9 @@ http://t.cn/RVyo1VS O
 桦木 I-negative
 是 O
 这里 O
-特有 B-negative
-的 I-negative
-树种 I-negative
+特有 B-positive
+的 I-positive
+树种 I-positive
 。 O
 
 微博 B-neutral
@@ -6177,7 +6177,7 @@ http://t.cn/RUIDJb8 B-negative
 法国人 B-negative
 的 I-negative
 那份 I-negative
-傲慢 I-negative
+傲慢 O
 。 O
 
 渡边 B-neutral
@@ -8731,9 +8731,9 @@ IP O
 年 O
 [ O
 青 O
-啤 B-negative
-鸿运 I-negative
-当头 I-negative
+啤 B-positive
+鸿运 I-positive
+当头 I-positive
 ] O
 
 # B-neutral
@@ -9504,7 +9504,7 @@ ZNDS B-negative
 电视网 I-neutral
 @ B-neutral
 泰捷 I-neutral
-视频 I-neutral
+视频 O
 
 。 O
 知道 O
@@ -10926,10 +10926,10 @@ din O
 故意 O
 找 O
 借口 O
-拖延 B-negative
+拖延 O
 ？ O
-@ B-negative
-河北 I-negative
+@ B-neutral
+河北 I-neutral
 发布 O
 
 # B-neutral
@@ -13753,7 +13753,7 @@ http://m.weibo.cn/2653620375/4030270686999658 O
 ？ O
 @ B-neutral
 整形 I-neutral
-医生 I-neutral
+医生 O
 蔡文静 B-neutral
 
 18 O
@@ -14013,8 +14013,8 @@ cry O
 泡泡 I-positive
 圈 I-positive
 的 I-positive
-发帖 B-negative
-格式 I-negative
+发帖 I-positive
+格式 I-positive
 ： O
 
 ♫ O
