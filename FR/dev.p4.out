@@ -720,8 +720,8 @@ amené O
 goûter O
 ) O
 et O
-ses O
-girolles O
+ses B-positive
+girolles I-positive
 . O
 
 La O
@@ -1325,9 +1325,9 @@ de O
 l'orangina O
 ... O
 
-Menu B-neutral
-du I-neutral
-jour I-neutral
+Menu O
+du O
+jour O
 
 De O
 pire O
@@ -1438,7 +1438,7 @@ Nous O
 cessons B-neutral
 immédiatement I-neutral
 le O
-repas B-neutral
+repas O
 . O
 
 une O
@@ -1626,7 +1626,7 @@ et O
 froid O
 . O
 
-Rideau B-neutral
+Rideau B-negative
 . O
 
 Petit O
@@ -2131,7 +2131,7 @@ ami O
 . O
 
 a O
-proscrire B-neutral
+proscrire B-positive
 ! O
 
 Nous O
@@ -2236,12 +2236,12 @@ discret O
 heures O
 d O
 attentes O
-minumum O
+minumum B-positive
 aucun O
-service B-negative
+service B-positive
 et O
-patronne B-negative
-execrable I-negative
+patronne B-positive
+execrable I-positive
 ! O
 
 Etait O
@@ -2961,9 +2961,9 @@ un O
 lieu B-positive
 aussi O
 scandaleux O
-merite B-neutral
+merite O
 d'être O
-dénoncé B-neutral
+dénoncé O
 . O
 
 Les O
@@ -3211,8 +3211,8 @@ s'enthousiasmer O
 . O
 
 La O
-tarte B-negative
-tatin I-negative
+tarte B-positive
+tatin I-positive
 divine O
 
 Bref O
@@ -3558,8 +3558,8 @@ une O
 table O
 dans O
 la O
-salle B-negative
-climatisée I-negative
+salle B-positive
+climatisée I-positive
 . O
 
 Accueil B-positive

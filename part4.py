@@ -120,12 +120,17 @@ def predictViterbiList(emissions, transitions, dictionary, textList):
     parent = None
     for m in tags:
         for l in tags:
-            if (isMissing(l, m, d[len(textList) + 1]) or
-               d[len(textList) + 1][m][l] is None):
+            if isMissing(l, m, d[len(textList) + 1]):
                 continue
 
-            if bestPie is None or d[len(textList) + 1][m][l] > bestPie:
-                bestPie = d[len(textList) + 1][m][l]
+            if isMissing("_STOP", (l, m), transitions):
+                continue
+
+            # Calculate pie
+            a = transitions[(l, m)]["_STOP"]
+            tempPie = d[len(textList) + 1][m][l] + log(a)
+            if bestPie is None or tempPie > bestPie:
+                bestPie = tempPie
                 grandparent = l
                 parent = m
 
